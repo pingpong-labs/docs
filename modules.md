@@ -1,6 +1,6 @@
 # Laravel Modules
 
-[![Build Status](https://travis-ci.org/pingpong-labs/sky.svg?branch=2.0)](https://travis-ci.org/pingpong-labs/modules)
+[![Build Status](https://travis-ci.org/pingpong-labs/sky.svg?branch=1.0)](https://travis-ci.org/pingpong-labs/modules)
 [![Latest Stable Version](https://poser.pugx.org/pingpong/modules/v/stable.png)](https://packagist.org/packages/pingpong/modules) [![Total Downloads](https://poser.pugx.org/pingpong/modules/downloads.png)](https://packagist.org/packages/pingpong/modules) [![Latest Unstable Version](https://poser.pugx.org/pingpong/modules/v/unstable.png)](https://packagist.org/packages/pingpong/modules) [![License](https://poser.pugx.org/pingpong/modules/license.png)](https://packagist.org/packages/pingpong/modules)
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pingpong-labs/modules/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
@@ -25,10 +25,10 @@ If upgrade your Laravel app from Laravel 4 to Laravel 5, there is a few things t
 - If you publish the package's configuration file, you need to move the config file from `app/config/packages/pingpong/modules/config.php` to `app/config/modules.php`.
 - If you are not publish the package's configuration file and you want to publish the config file, just run `php artisan vendor:publish` command and you are done. 
 
-#### From 1.1.* to 1.2.0
+#### From 1.1.* to 1.1.0
 
 New configuration file. This breaking change affected if you publish the configuration file from this package. To fix this issue, create new config file called `config.php` in your `app/config/packages/pingpong/modules/` directory. Next move the array contents from `paths.php` file to `paths` array in new configuration file.
-Your config file will looks like [this](https://github.com/pingpong-labs/modules/blob/1.2.0/src/config/config.php).
+Your config file will looks like [this](https://github.com/pingpong-labs/modules/blob/1.1.0/src/config/config.php).
 
 <a name="installation"></a>
 ## Installation
@@ -38,7 +38,7 @@ To install through composer, simply put the following in your composer.json file
 ```json
 {
     "require": {
-        "pingpong/modules": "~2.0"
+        "pingpong/modules": "~1.0"
     }
 }
 ```
@@ -50,7 +50,7 @@ And then run `composer install` to fetch the package.
 You could also simplify the above code by using the following command:
 
 ```
-composer require "pingpong/modules:~2.0"
+composer require "pingpong/modules:~1.0"
 ```
 
 #### Add Service Provider
@@ -461,7 +461,7 @@ Config::get('blog.name')
 
 ## Publishing Modules
 
-Have you created a laravel modules? Yes, I've. Then, I want to publish my modules. Where do I publish it? That's the question. What's the answer ? The answer is [Packagist](http://packagist.org). In pingpong/modules version >= 1.2.0, when you generate a module, you will see there is a new file generated called `composer.json`.
+Have you created a laravel modules? Yes, I've. Then, I want to publish my modules. Where do I publish it? That's the question. What's the answer ? The answer is [Packagist](http://packagist.org). In pingpong/modules version >= 1.1.0, when you generate a module, you will see there is a new file generated called `composer.json`.
 
 ### Autoloading
 

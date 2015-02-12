@@ -4,7 +4,7 @@ Laravel Validator
 ### Quick Installation Via Composer
 
 ```
-composer require "pingpong/validator:~2.0"
+composer require "pingpong/validator:~1.0"
 ```
 
 ### Example

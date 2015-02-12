@@ -16,7 +16,7 @@ Laravel Widget System
 Open your composer.json file and add the new required package.
 
 ```
-    "pingpong/widget" : "~2.0"
+    "pingpong/widget" : "~1.0"
 ```
 
 Next, open your terminal and run `composer update`.

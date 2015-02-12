@@ -16,7 +16,7 @@ Laravel Shortcode
 Open your composer.json file, and add the new required package.
 
 ```
-  "pingpong/shortcode": "~2.0" 
+  "pingpong/shortcode": "~1.0" 
 ```
 
 Next, open a terminal and run.
