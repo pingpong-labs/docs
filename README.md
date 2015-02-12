@@ -1,6 +1,6 @@
 # Welcome
 
-Sky 1.0 is an extra Laravel package which created for laravel 5.
+Sky 1.0 is an extra Laravel package which created for laravel 4.
 
 ## License
 
