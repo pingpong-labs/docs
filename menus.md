@@ -55,9 +55,17 @@ Then add the class alias in `aliases`.
 	)
 ```
 Then, publish configuration for package `pingpong/menus`:
+
+Laravel 4.*
 ```
 php artisan config:publish pingpong/menus
 ```
+
+Laravel 5.
+```
+php artisan vendor:publish
+```
+
 Done.
 
 ### Screenshot
