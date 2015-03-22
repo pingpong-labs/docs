@@ -1,14 +1,15 @@
-- Setup
-    - [Installation](/docs/master/installation)
-- Packages
-    - [Modules](/docs/master/modules)
-    - [Generators](/docs/master/generators)
-    - [Menus](/docs/master/menus)
-    - [Testing](/docs/master/testing)
-    - [Oembed](/docs/master/oembed)
-    - [Presenters](/docs/master/presenters)
-    - [Shortcode](/docs/master/shortcode)
-    - [Themes](/docs/master/themes)
-    - [Trusty](/docs/master/trusty)
-    - [Widget](/docs/master/widget)
-    - [Validator](/docs/master/validator)
+<ul id="slide-out2" class="side-nav fixed">
+    <li class="logo"><a href="#" class="brand-logo">Sky</a> </li>
+    <li><a href="/docs/master/installation">Installation</a></li>
+    <li><a href="/docs/master/modules">Modules</a></li>
+    <li><a href="/docs/master/menus">Menus</a></li>
+    <li><a href="/docs/master/widget">Widget</a></li>
+    <li><a href="/docs/master/generators">Generators</a></li>
+    <li><a href="/docs/master/testing">Testing</a></li>
+    <li><a href="/docs/master/oembed">Oembed</a></li>
+    <li><a href="/docs/master/validator">Validator</a></li>
+    <li><a href="/docs/master/presenters">Presenters</a></li>
+    <li><a href="/docs/master/trusty">Trusty</a></li>
+    <li><a href="/docs/master/themes">Themes</a></li>
+    <li><a href="/docs/master/shortcode">Shortcode</a></li>
+</ul>
