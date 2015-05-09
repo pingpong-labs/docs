@@ -14,7 +14,7 @@ Trusty - Roles Based On Permission
 
 Open your composer.json file, and add the new required package.
 ```
-"pingpong/trusty": "2.0.*@dev" 
+"pingpong/trusty": "~2.0" 
 ```
 Next, open a terminal and run.
 ```

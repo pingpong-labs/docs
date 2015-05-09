@@ -9,7 +9,7 @@ Laravel View Presenter
 
 Open your composer.json file, and add the new required package.
 	
- 	"pingpong/presenters": "2.0.*@dev" 
+ 	"pingpong/presenters": "~2.0" 
 
 Next, open a terminal and run.
 

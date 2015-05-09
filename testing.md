@@ -8,7 +8,7 @@ Unit Testing For Laravel's Package
 ### Quick Installation Via Composer
 
 ```
-composer require "pingpong/testing:2.0.*@dev"
+composer require "pingpong/testing:~2.0"
 ```
 
 <a name="example-usage"></a>

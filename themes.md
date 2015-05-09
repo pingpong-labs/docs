@@ -10,7 +10,7 @@ Laravel Themes
 
 Open your composer.json file, and add the new required package.
 ```
-   "pingpong/themes": "2.0.*@dev"
+   "pingpong/themes": "~2.0"
 ```
 Next, open a terminal and run.
 ```
