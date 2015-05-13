@@ -65,6 +65,19 @@ Next add the following service provider in `config/app.php`.
 ),
 ```
 
+Next, add the following aliases to `aliases` array in the same file.
+
+```
+'aliases' => array(
+
+    // ...
+
+    'Module' => 'Pingpong\Modules\Facades\Module',
+
+),
+
+``
+
 Next publish the package's configuration file by run :
 
 ```
@@ -79,7 +92,8 @@ By default controllers, entities or repositories not loaded automatically. You c
 {
     "autoload": {
         "psr-4": {
-            "Modules\\": "Modules"
+            "App\\": "app/",
+            "Modules\\": "modules/"
         }
     }
 }
@@ -157,7 +171,7 @@ laravel-app/
       ├── Entities/
       ├── Http/
           ├── Controllers/
-          ├── Filters/
+          ├── Middleware/
           ├── Requests/
           ├── routes.php
       ├── Providers/
@@ -324,7 +338,7 @@ php artisan module:disable blog
 
 Generate new middleware class.
 ```
-php artisan module:make-middleware AuthFilter
+php artisan module:make-middleware Auth
 ```
 
 Update dependencies for the specified module.
@@ -335,6 +349,11 @@ php artisan module:update ModuleName
 Update dependencies for all modules.
 ```
 php artisan module:update
+```
+
+Show the list of modules.
+```
+php artisan module:list
 ```
 
 <a name="facades"></a>
@@ -485,22 +504,46 @@ Module::update('hello');
 Get an entity from a specific module.
 
 ```php
-  $module = Module::get('blog');
+  $module = Module::find('blog');
+```
 
+Get module name.
+```
   $module->getName();
+```
 
+Get module name in lowercase.
+```
   $module->getLowerName();
+```
 
+Get module name in studlycase.
+```
   $module->getStudlyName();
+```
 
+Get module path.
+```
   $module->getPath();
+```
 
+Get extra path.
+```
   $module->getExtraPath('Assets');
+```
 
+Disable the specified module.
+```
   $module->enable();
+```
 
+Enable the specified module.
+```
   $module->disable();
+```
 
+Delete the specified module.
+```
   $module->delete();
 ```
 
@@ -534,7 +577,7 @@ Have you created a laravel modules? Yes, I've. Then, I want to publish my module
 By default the `vendor` directory is not not scanned automatically, you need to update the configuration file to allow that. Set `scan.enabled` value to `true`. For example :
 
 ```php
-// file [laravel-app]/config/packages/pingpong/modules/paths.php
+// file config/modules.php
 
 return [
    //...
@@ -543,6 +586,12 @@ return [
    ]
    //...
 ]
+```
+
+You can verify the module has been installed using `module:list` command:
+
+```
+php artisan module:list
 ```
 
 <a name="publishing-modules"></a>
