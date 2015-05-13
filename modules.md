@@ -4,10 +4,13 @@ Laravel Modules
 - [Upgrade Guide](#upgrade-guide)
 - [Installation](#installation)
 - [Configuration](#configuration)
+- [Naming Convension](#naming-convension)
+- [Folder Structure](#folder-structure)
 - [Creating Module](#creating-a-module)
 - [Artisan Commands](#artisan-commands)
 - [Facades](#facades)
 - [Entity](#entity)
+- [Auto Scan Vendor Directory](#auto-scan-vendor-directory)
 - [Publishing Modules](#publishing-modules)
 
 `pingpong/modules` is a laravel package which created to manage your large laravel app using modules. Module is like a laravel package, it have some views, controllers or models. This package is supported and tested in both Laravel 4 and Laravel 5.
@@ -57,10 +60,10 @@ Next add the following service provider in `config/app.php`.
 ```php
 'providers' => array(
 
-    // ...
+// ...
 
-    'Pingpong\Modules\ModulesServiceProvider',
-    'Pingpong\Modules\Providers\BootstrapServiceProvider',
+'Pingpong\Modules\ModulesServiceProvider',
+'Pingpong\Modules\Providers\BootstrapServiceProvider',
 
 ),
 ```
@@ -70,13 +73,13 @@ Next, add the following aliases to `aliases` array in the same file.
 ```
 'aliases' => array(
 
-    // ...
+// ...
 
-    'Module' => 'Pingpong\Modules\Facades\Module',
+'Module' => 'Pingpong\Modules\Facades\Module',
 
 ),
 
-``
+```
 
 Next publish the package's configuration file by run :
 
@@ -90,12 +93,12 @@ By default controllers, entities or repositories not loaded automatically. You c
 
 ```json
 {
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/",
-            "Modules\\": "modules/"
-        }
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Modules\\": "modules/"
     }
+  }
 }
 ```
 
@@ -107,16 +110,16 @@ By default controllers, entities or repositories not loaded automatically. You c
 - `migration` - Used for save the modules's migrations if you publish the modules's migrations.
 - `generator` - Used for generate modules folders.
 - `scan` - Used for allow to scan other folders.
-  - `enabled` - If `true`, the package will scan other paths. By default the value is `false`
-  - `paths` - The list of path which can scanned automatically by the package.
+- `enabled` - If `true`, the package will scan other paths. By default the value is `false`
+- `paths` - The list of path which can scanned automatically by the package.
 - `composer`
-  - `vendor` - Composer vendor name.
-  - `author.name` - Composer author name.
-  - `author.email` - Composer author email.
+- `vendor` - Composer vendor name.
+- `author.name` - Composer author name.
+- `author.email` - Composer author email.
 - `cache`
-  - `enabled` - If `true`, the scanned modules (all modules) will cached automatically. By default the value is `false`
-  - `key` - The name of cache.
-  - `lifetime` - Lifetime of cache.
+- `enabled` - If `true`, the scanned modules (all modules) will cached automatically. By default the value is `false`
+- `key` - The name of cache.
+- `lifetime` - Lifetime of cache.
 
 <a name="creating-a-module"></a>
 ## Creating A Module
@@ -149,19 +152,21 @@ php artisan module:make Blog --plain
 php artisan module:make Blog -p
 ```
 
+<a name="naming-convension"></a>
 **Naming Convension**
 
 Because we are autoloading the modules using `psr-4`, we strongly recommend using `StudlyCase` convension.
 
+<a name="folder-structure"></a>
 **Folder Structure**
 
 ```
 laravel-app/
-  app/
-  bootstrap/
-  vendor/
-  Modules/
-    ├── Blog/
+app/
+bootstrap/
+vendor/
+modules/
+  ├── Blog/
       ├── Assets/
       ├── Config/
       ├── Console/
@@ -193,7 +198,7 @@ Create new module.
 
 ```
 php artisan module:make blog
-  ```
+```
 
 Use the specified module. Please see [#26](https://github.com/pingpong-labs/modules/pull/26).
 
@@ -206,113 +211,113 @@ Show all modules in command line.
 ```
 php artisan module:list
 ```
-  
+
 Create new command for the specified module.
-  
-  ```
-  php artisan module:make-command CustomCommand blog
 
-  php artisan module:make-command CustomCommand --command=custom:command blog
+```
+php artisan module:make-command CustomCommand blog
 
-  php artisan module:make-command CustomCommand --namespace=Modules\Blog\Commands blog
-  ```
-  
+php artisan module:make-command CustomCommand --command=custom:command blog
+
+php artisan module:make-command CustomCommand --namespace=Modules\Blog\Commands blog
+```
+
 Create new migration for the specified module.
 
-  ```
-  php artisan module:make-migration create_users_table blog
+```
+php artisan module:make-migration create_users_table blog
 
-  php artisan module:make-migration create_users_table --fields="username:string, password:string" blog
+php artisan module:make-migration create_users_table --fields="username:string, password:string" blog
 
-  php artisan module:make-migration add_email_to_users_table --fields="email:string:unique" blog
+php artisan module:make-migration add_email_to_users_table --fields="email:string:unique" blog
 
-  php artisan module:make-migration remove_email_from_users_table --fields="email:string:unique" blog
+php artisan module:make-migration remove_email_from_users_table --fields="email:string:unique" blog
 
-  php artisan module:make-migration drop_users_table blog
-  ```
+php artisan module:make-migration drop_users_table blog
+```
 
 Rollback, Reset and Refresh The Modules Migrations.
 ```
-  php artisan module:migrate-rollback
+php artisan module:migrate-rollback
 
-  php artisan module:migrate-reset
+php artisan module:migrate-reset
 
-  php artisan module:migrate-refresh
+php artisan module:migrate-refresh
 ```
 
 Rollback, Reset and Refresh The Migrations for the specified module.
 ```
-  php artisan module:migrate-rollback blog
+php artisan module:migrate-rollback blog
 
-  php artisan module:migrate-reset blog
+php artisan module:migrate-reset blog
 
-  php artisan module:migrate-refresh blog
+php artisan module:migrate-refresh blog
 ```
-  
+
 Create new seed for the specified module.
 
-  ```
-  php artisan module:make-seed users blog
-  ```
-  
+```
+php artisan module:make-seed users blog
+```
+
 Migrate from the specified module.
 
-  ```
-  php artisan module:migrate blog
-  ```
-  
+```
+php artisan module:migrate blog
+```
+
 Migrate from all modules.
 
-  ```
-  php artisan module:migrate
-  ```
-  
+```
+php artisan module:migrate
+```
+
 Seed from the specified module.
 
-  ```
-  php artisan module:seed blog
-  ```
-  
+```
+php artisan module:seed blog
+```
+
 Seed from all modules.
- 
-  ```
-  php artisan module:seed
-  ```
+
+```
+php artisan module:seed
+```
 
 Create new controller for the specified module.
 
-  ```
-  php artisan module:make-controller SiteController blog
-  ```
+```
+php artisan module:make-controller SiteController blog
+```
 
 Publish assets from the specified module to public directory.
 
-  ```
-  php artisan module:publish blog
-  ```
+```
+php artisan module:publish blog
+```
 
 Publish assets from all modules to public directory.
 
-  ```
-  php artisan module:publish
-  ```
+```
+php artisan module:publish
+```
 
 Create new model for the specified module.
 
-  ```
-  php artisan module:make-model User blog
+```
+php artisan module:make-model User blog
 
-  php artisan module:make-model User blog --fillable="username,email,password"
-  ```
+php artisan module:make-model User blog --fillable="username,email,password"
+```
 
 Create new service provider for the specified module.
 
-  ```
-  php artisan module:make-provider MyServiceProvider blog
-  ```
+```
+php artisan module:make-provider MyServiceProvider blog
+```
 
 Publish migration for the specified module or for all modules.
-    This helpful when you want to rollback the migrations. You can also run `php artisan migrate` instead of `php artisan module:migrate` command for migrate the migrations.
+This helpful when you want to rollback the migrations. You can also run `php artisan migrate` instead of `php artisan module:migrate` command for migrate the migrations.
 
 For the specified module.
 ```
@@ -504,47 +509,47 @@ Module::update('hello');
 Get an entity from a specific module.
 
 ```php
-  $module = Module::find('blog');
+$module = Module::find('blog');
 ```
 
 Get module name.
 ```
-  $module->getName();
+$module->getName();
 ```
 
 Get module name in lowercase.
 ```
-  $module->getLowerName();
+$module->getLowerName();
 ```
 
 Get module name in studlycase.
 ```
-  $module->getStudlyName();
+$module->getStudlyName();
 ```
 
 Get module path.
 ```
-  $module->getPath();
+$module->getPath();
 ```
 
 Get extra path.
 ```
-  $module->getExtraPath('Assets');
+$module->getExtraPath('Assets');
 ```
 
 Disable the specified module.
 ```
-  $module->enable();
+$module->enable();
 ```
 
 Enable the specified module.
 ```
-  $module->disable();
+$module->disable();
 ```
 
 Delete the specified module.
 ```
-  $module->delete();
+$module->delete();
 ```
 
 <a name="namespaces"></a>
@@ -572,19 +577,20 @@ Config::get('blog.name')
 
 Have you created a laravel modules? Yes, I've. Then, I want to publish my modules. Where do I publish it? That's the question. What's the answer ? The answer is [Packagist](http://packagist.org). In pingpong/modules version >= 1.2.0, when you generate a module, you will see there is a new file generated called `composer.json`.
 
-### Autoloading
+<a name="auto-scan-vendor-directory"></a>
+### Auto Scan Vendor Directory
 
-By default the `vendor` directory is not not scanned automatically, you need to update the configuration file to allow that. Set `scan.enabled` value to `true`. For example :
+By default the `vendor` directory is not scanned automatically, you need to update the configuration file to allow that. Set `scan.enabled` value to `true`. For example :
 
 ```php
 // file config/modules.php
 
 return [
-   //...
-   'scan' => [
-     'enabled' => true
-   ]
-   //...
+  //...
+  'scan' => [
+    'enabled' => true
+  ]
+  //...
 ]
 ```
 
@@ -604,4 +610,4 @@ You can follow this step to publish your module.
 1. Create A Module.
 2. Push the module to github.
 3. Submit your module to the packagist website.
-   Submit to packagist is very easy, just give your github repository, click submit and you done.
+Submit to packagist is very easy, just give your github repository, click submit and you done.
