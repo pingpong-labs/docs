@@ -15,38 +15,24 @@ You can install the through composer command line.
 composer require pingpong/menus
 ```
 
-After that, open the file `app/config/app.php` and add a new service provider in `providers` array.
+After the package installed, add a new service provider to the `providers` array in `config/app.php` file.
+
 ```php
-   
-	'providers' => array(
-
-		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-		'Illuminate\Auth\AuthServiceProvider',		
-		...
-		'Illuminate\View\ViewServiceProvider',
-		'Illuminate\Workbench\WorkbenchServiceProvider',
-		
-		// here
-		'Pingpong\Menus\MenusServiceProvider'
-
-	),
+'providers' => array(
+	'Pingpong\Menus\MenusServiceProvider'
+),
 ```
-Then add the class alias in `aliases`.
+
+Add new alias for `Menu` facade to the `aliases` array at the same file.
+
 ```php
-
-	'aliases' => array(
-
-		'App'             => 'Illuminate\Support\Facades\App',
-		'Artisan'         => 'Illuminate\Support\Facades\Artisan',		
-		...		
-		'Validator'       => 'Illuminate\Support\Facades\Validator',
-		'View'            => 'Illuminate\Support\Facades\View',
-		
-		// here
-		'Menu'          =>  'Pingpong\Menus\MenuFacade',
-	)
+'aliases' => array(
+	'Menu' => 'Pingpong\Menus\MenuFacade',
+)
 ```
+
 Then, publish configuration by running:
+
 ```
 php artisan vendor:publish
 ```
@@ -56,71 +42,121 @@ php artisan vendor:publish
 
 You can define your menus in `app/Support/menus.php` file. That file will loaded automatically by this package.
 
-To create a menu, simply call the `create` method from `Menu` facade.
+To create a menu, simply call the `create` method from `Menu` facade. The first parameter is the menu name and the second parameter is callback for defining menu items.
 
 ```php
 Menu::create('navbar', function($menu)
 {
-    // using array
-	$menu->add([
-		'route'	=>	'home',
-		'title'	=>	'Home',
-		'icon'  =>  'fa fa-dashboard'
-	]);
-
-	// menu with target to url
-	$menu->url('/', 'Home');
-
-	// with additional attributes
-	$menu->url('/', 'Home', ['class' => 'nav-link']);
-
-	// menu with target to registered route
-	$menu->route('home', 'Home');
-
-	// with additional route parameters and attributes
-	$menu->route('home', 'Home', null, ['class' => 'nav-link']);
-
-	$menu->route('users.show', Auth::user()->name, Auth::id(), ['class' => 'nav-link']);
-
-	$menu->route('users.show', 'My Profile', ['username' => 'gravitano'], ['class' => 'nav-link']);
-
-	$menu->route('products.show', 'View Product', 1, ['class' => 'nav-link']);
-
-	// dropdown menu
-	$menu->dropdown('Settings', function($sub)
-	{
-	    $sub->url('settings/account', 'Account');
-	    $sub->route('settings.profile', 'Profile');
-	    $sub->route('logout', 'Logout');
-	});
-
-	// multi level menu (nested)
-	$menu->dropdown('Category', function($sub)
-	{
-	    $sub->url('category/programming', 'Programming');
-
-	    $sub->url('category/screencasts', 'Screencasts');
-
-	    $sub->dropdown('Sport News', function($sub)
-	    {
-	        $sub->url('category/football', 'Football');
-	        $sub->url('category/basket-ball', 'Basket Ball');
-	    });
-
-	    $sub->dropdown('Title', function($sub)
-	    {
-	        $sub->url('link', 'Link');
-	        $sub->dropdown('Title', function($sub)
-	        {
-	            $sub->dropdown('Title N', function($sub)
-	            {
-	                // more nested menu here
-	            });
-	        });
-	    });
-	});
+	// define your menu items here
 });
 ````
+
+**Defining Menu Items**
+
+As explained before, we can defining menu item in the callback by accessing `$menu` variable, which the variable is instance of `Pingpong\Menus\MenuBuilder` class.
+
+To defining a plain URL, you can use `->url()` method.
+```php
+Menu::create('navbar', function($menu)
+{
+              // URL , Title,  Attributes
+	$menu->url('home', 'Home', ['target' => 'blank']);
+});
+```
+
+If you have named route, you define the menu item by calling `->route()` method.
+```php
+Menu::create('navbar', function($menu)
+{
+	$menu->route(
+		'users.show', // route name
+		'View Profile', // title
+		['id' => 1], // route parameters
+		['target' => 'blank'] // attributes
+	);
+});
+```
+
+You can also defining the menu item via array by calling `->add()` method.
+```php
+Menu::create('navbar', function($menu)
+{
+	$menu->add([
+		'url' => 'about',
+		'title' => 'About',
+		'attributes' => [
+			'target' => '_blank'
+		]
+	]);
+
+	$menu->add([
+		'route' => ['profile', ['user' => 'gravitano']],
+		'title' => 'Visit My Profile',
+		'attributes' => [
+			'target' => '_blank'
+		]
+	]);
+});
+```
+
+**Menu Dropdown**
+
+To create a dropdown menu, you can call to `->dropdown()` method and passing the first parameter by title of dropdown and the second parameter by closure callback that retrive `$sub` variable. The `$sub` variable is the the instance of `Pingpong\Menus\MenuItem` class.
+
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->url('/', 'Home');
+	$menu->dropdown('Settings', function ($sub) {
+		$sub->url('settings/account', 'Account');
+		$sub->url('settings/password', 'Password');
+		$sub->url('settings/design', 'Design');
+	});
+});
+```
+
+You can also create a dropdown inside dropdown by using `->dropdown()` method. This will allow to to create a multilevel menu items.
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->url('/', 'Home');
+	$menu->dropdown('Account', function ($sub) {
+		$sub->url('profile', 'Visit My Profile');
+		$sub->dropdown('Settings', function ($sub) {
+			$sub->url('settings/account', 'Account');
+			$sub->url('settings/password', 'Password');
+			$sub->url('settings/design', 'Design');
+		});
+		$sub->url('logout', 'Logout');
+	});
+});
+```
+
+**Divider and Dropdown Header**
+
+You may also define a divider for each menu item. You can divide between menu item by using `->divider()` method.
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->url('/', 'Home');
+	$menu->divider();
+	$menu->url('profile', 'Profile')
+});
+```
+
+You may also add a dropdown header for the specified menu item by using `->header()` method.
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->url('/', 'Home')
+	$menu->url('Settings', function ($sub) {
+		$sub->header('ACCOUNT');
+		$sub->url('/settings/design', 'Design');
+		$sub->divider();
+		$sub->url('logout', 'Logout');
+	});
+});
+```
 
 **Make Lots of menu**
 
