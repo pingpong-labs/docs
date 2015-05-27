@@ -1,5 +1,4 @@
-Laravel Menus
-========================
+# Laravel 5 Menus
 
 - [Installation](#installation)
 - [Creating A Menu](#creating-a-menu)
@@ -10,9 +9,13 @@ Laravel Menus
   - [Dropdown Header](#dropdown-header)
   - [Make Lots of Menu](#make-lots-of-menu)
 - [Menu Presenter](#menu-presenter)
-  - [Presenter Class](#presenter-class)
-  - [View Presenter](#view-presenter)
+  - [The Available Presenter](#available-presenter)
+  - [Make A Custom Presenter](#make-a-custom-presenter)
+  - [Register A New Menu Style](#register-a-menu-style)
+- [View Presenter](#view-presenter)
+  - [The Available View Presenter](#available-view-presenter)
 - [Rendering Menu](#rendering-menu)
+- [Menu Instance](#menu-instance)
 
 <a name="installation"></a>
 ## Installation
@@ -39,7 +42,7 @@ Add new alias for `Menu` facade to the `aliases` array at the same file.
 )
 ```
 
-Then, publish configuration by running:
+Then, publish package's assets by running:
 
 ```
 php artisan vendor:publish
@@ -197,40 +200,55 @@ Menu::create('menu2', function($menu)
 });
 ```
 
-<a name="rendering-a-menu"></a>
-### Rendering A Menu
+<a name="menu-presenter"></a>
+### Menu Presenter
 
-To render the menu you can use `render` or `get` method.
+This package included with some presenter classes that used for converting menu to html tag. By default the generated menu style is `bootstrap navbar`. But, there are also several different menu styles.
 
-```php
-Menu::render('navbar');
+You can apply the menu style via `->style()` method.
 
-Menu::get('menu1');
-
-Menu::get('menu2');
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->style('nav-pills');
+});
 ```
 
-**Menu Style.**
-
-By default the generated menu style is bootstrap navbar. In addition there are also several different menu styles and is already available by default are `navbar`, `navbar-right`, `nav-pills` and `nav-tab`. To set the style menu you can use the method `style`. Examples like this.
+Or you can set which presenter to present the menu style via `->setPresenter()` method.
 
 ```php
 Menu::create('navbar', function($menu)
 {
-	$menu->style('nav-pills');
-
-	$menu->route('home', 'Home');
-
-	$menu->url('profile', 'Profile');
+	$menu->setPresenter('Pingpong\Menus\Presenters\Bootstrap\NavTabPresenter');
 });
 ```
 
-**Make A Costum Presenter**
-
-You can create your own presenter class. Make sure your presenter is extends to `Pingpong\Menus\Presenters\Presenter`, that class is also `implements` to 'Pingpong\Menus\Presenters\PresenterInterface'. For example this is zurb topbar presenter. 
+You can also set which style of presenter when you rendering a menu.
 
 ```php
+Menu::render('navbar', 'navbar-right');
 
+Menu::render('navbar', 'Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter');
+```
+
+<a name="available-presenter"></a>
+**The List of Available Menu Presenter Class**
+
+| Name          | Presenter Class           |
+| ------------- |:-------------|
+| `navbar`		| `Pingpong\Menus\Presenters\Bootstrap\NavbarPresenter` |
+| `navbar-right`| `Pingpong\Menus\Presenters\Bootstrap\NavbarRightPresenter` |
+| `nav-pills`	| `Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter` |
+| `nav-tab`		| `Pingpong\Menus\Presenters\Bootstrap\NavTabPresenter` |
+
+<a name="make-a-custom-presenter"></a>
+**Make A Costum Presenter**
+
+You can create your own presenter class. Make sure your presenter is extends to `Pingpong\Menus\Presenters\Presenter` and `implements` to 'Pingpong\Menus\Presenters\PresenterInterface'.
+
+For example this is `zurb-top-bar` presenter. 
+
+```php
 use Pingpong\Menus\Presenters\Presenter;
 
 class ZurbTopBarPresenter extends Presenter
@@ -293,29 +311,19 @@ class ZurbTopBarPresenter extends Presenter
 }
 
 ```
-For use costum presenter, you can use the `setPresenter` method, for example like this.
+To use this costum presenter, you can use the `setPresenter` method.
+
 ```php
 Menu::create('zurb-top-bar', function($menu)
 {
 	$menu->setPresenter('ZurbTopBarPresenter');
-
-	$menu->route('home', 'Home');
-
-	$menu->url('profile', 'Profile');
 });
 ```
 
-Or you can set it at the time of calling the menu, like this.
+<a name="register-a-menu-style"></a>
+**Register A New Menu Style**
 
-```php
-Menu::render('zurb-top-bar', 'ZurbTopBarPresenter');
-
-Menu::get('zurb-top-bar', 'ZurbTopBarPresenter');
-```
-
-**Register A New Style Menu**
-
-This Style is like an alias to a presenter. You can register your style from your costum presenter in the configuration file in  `app/config/packages/pingpong/menus/config.php`. Like this.
+Menu style is like an alias to a presenter. You can register your style from your costum presenter in the configuration file in `config/menus.php`.
 
 ```php
 return array(
@@ -328,25 +336,67 @@ return array(
 );
 ```
 
-Then you can use a style like this. Same as section **Menu Style** above.
+Now, you can use a style like this.
 
 ```php
 Menu::create('zurb-top-bar', function($menu)
 {
 	$menu->style('zurb-top-bar');
-	$menu->add([
-		'route'	=>	'home',
-		'title'	=>	'Home',
-	]);
-	$menu->url('profile', 'Profile');
-
-	$menu->route('settings', 'Settings');
 });
 ```
 
-**Get The Menu Instance**
+<a name="view-presenter"></a>
+### View Presenter
 
-To get an instance of an existing menu, you can use the `instance` method. Here's an example.
+If you don't like to use presenter class, you use view presenter instead. We can set which view to present the menus by calling `->setView()` method.
+
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->setView('menus::default');
+});
+```
+
+<a name="available-view-presenter"></a>
+**The List of Available View Presenter**
+
+| View Name                    | Menu Style                   |
+| ---------------------------- |:-----------------------------|
+| `menus::default`		       | Bootstrap Navbar (default)   |
+| `menus::navbar-left`		   | Bootstrap Navbar Left        |
+| `menus::navbar-right`		   | Bootstrap Navbar Right       |
+| `menus::nav-tabs`		       | Bootstrap Nav Tabs           |
+| `menus::nav-tabs-justified`  | Bootstrap Nav Tabs Justified |
+| `menus::nav-pills`		   | Bootstrap Nav Pills          |
+| `menus::nav-pills-stacked`   | Bootstrap Nav Pills Stacked  |
+| `menus::nav-pills-justified` | Bootstrap Nav Pills Justified|
+| `menus::menu`                | Plain Menu                   |
+
+<a name="rendering-menu"></a>
+### Rendering Menu
+
+To render the menu you can use `render` or `get` method.
+
+```php
+Menu::render('navbar');
+
+Menu::get('navbar');
+```
+
+You can also set which style to present the menu in the second parameter.
+```
+Menu::render('navbar', 'navbar-right');
+```
+
+Or you may also set which view to present the menu.
+```
+Menu::render('navbar', 'menus::nav-tabs');
+```
+
+<a name="menu-instance"></a>
+### The Menu Instance
+
+Sometimes, maybe we need to add a new additional menu from controller or other place. To get an instance of an existing menu, you can use the `instance` method.
 
 ```php
 $menu = Menu::instance('zurb-top-bar');
