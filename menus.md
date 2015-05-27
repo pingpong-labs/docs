@@ -2,23 +2,19 @@ Laravel Menus
 ========================
 
 - [Installation](#installation)
-- [Screenshot](#screenshot)
-- [What's New](#whats-new)
-- [Usage](#usage)
+- [Creating A Menu](#creating-a-menu)
+- [Setting up Menu Presenter](#setting-up-menu-presenter)
+- [Rendering Menu to The View](#rendering-menu-to-the-view)
 
 <a name="installation"></a>
 ## Installation
 
-First, open your `composer.json` file and add new package.
+You can install the through composer command line.
+
 ```
-    "require": {
-        "pingpong/menus": "~2.0" 
-    },
+composer require pingpong/menus
 ```
-Then open a terminal and run:
-```
-composer update 
-```
+
 After that, open the file `app/config/app.php` and add a new service provider in `providers` array.
 ```php
    
@@ -50,93 +46,18 @@ Then add the class alias in `aliases`.
 		'Menu'          =>  'Pingpong\Menus\MenuFacade',
 	)
 ```
-Then, publish configuration for package `pingpong/menus`:
+Then, publish configuration by running:
 ```
 php artisan vendor:publish
 ```
-Done.
 
-<a name="screenshot"></a>
-## Screenshot
+<a name="creating-a-menu"></a>
+## Creating A Menu
 
-![View Screenshot](https://raw.githubusercontent.com/pingpong-labs/menus/master/shots/multilevel-menu-pingpong.png)
+You can define your menus in `app/Support/menus.php` file. That file will loaded automatically by this package.
 
-<a name="whats-new"></a>
-## What's New
+To create a menu, simply call the `create` method from `Menu` facade.
 
-On `app/menus.php` :
-```php
-
-// app/menus.php
-
-use Pingpong\Menus\Builder;
-use Pingpong\Menus\MenuItem;
-
-Menu::create('top', function(Builder $menu)
-{
-    // simple using route
-    $menu->route('home', 'Home');
-    // simple using route with parameters and attributes
-    $menu->route('profile.user', 'View Profile', ['username' => 'gravitano'], ['class' => 'btn btn-default']);
-    // using array
-    $menu->add([
-        'url'   =>  'messages',
-        'title' =>  'Messages',
-        'icon'  =>  'fa fa-envelope'
-    ]);
-    // using url
-    $menu->url('products', 'Products');
-    // using url with attributes
-    $menu->url('products/1', 'View Products', ['class' => 'btn btn-link']);
-    // new! support dropdown with multi level nested menu
-    $menu->dropdown('Settings', function(MenuItem $sub)
-    {
-        $sub->url('profile/edit', 'Edit Profile');
-        $sub->dropdown('Account', function(MenuItem $sub)
-        {
-            $sub->url('settings/payment', 'Payment');
-            // nested menu
-            $sub->dropdown('Social Network', function(MenuItem $sub)
-            {
-                $sub->url('https://github.com/gravitano', 'Github', ['target' => '_blank']);
-                $sub->url('https://facebook.com/warsono.m.faisyal', 'Facebook', ['target' => '_blank']);
-                $sub->url('https://twitter.com/gravitano', 'Twitter', ['target' => '_blank']);
-            });
-        });
-        $sub->url('logout', 'Logout');
-    });
-});
-```
-
-On view, for example `hello.blade.php`.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Laravel PHP Framework</title>
-	{{ HTML::style('css/bootstrap.css') }}
-	{{-- Add new style for allowing multi level menu --}}
-    {{ Menu::style() }}
-</head>
-<body>
-
-    <div class="container">
-        {{ Menu::get('top') }}
-    </div>
-
-    {{ HTML::script('js/jquery.min.js') }}
-    {{ HTML::script('js/bootstrap.min.js') }}
-</body>
-</html>
-```
-
-<a name="usage"></a>
-## Usage 
-
-First, create a file called `menus.php` in your `app/` folder, alongside with `routes.php` and `filters.php`. The file will be automatically include if the file exists. And you can define your menus in that file.
-
-**Creating a menu.**
 ```php
 Menu::create('navbar', function($menu)
 {
@@ -222,7 +143,8 @@ Menu::create('menu2', function($menu)
 });
 ```
 
-**Calling a menu.**
+<a name="rendering-a-menu"></a>
+### Rendering A Menu
 
 To call up the menu you can use `render` or `get` method.
 
