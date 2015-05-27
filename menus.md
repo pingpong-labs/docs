@@ -248,7 +248,7 @@ Menu::render('navbar', 'Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter');
 
 You can create your own presenter class. Make sure your presenter is extends to `Pingpong\Menus\Presenters\Presenter` and `implements` to 'Pingpong\Menus\Presenters\PresenterInterface'.
 
-For example this is `zurb-top-bar` presenter. 
+For example, this is `zurb-top-bar` presenter. 
 
 ```php
 use Pingpong\Menus\Presenters\Presenter;
