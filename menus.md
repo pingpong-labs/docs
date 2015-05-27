@@ -234,12 +234,14 @@ Menu::render('navbar', 'Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter');
 <a name="available-presenter"></a>
 **The List of Available Menu Presenter Class**
 
-| Name          | Presenter Class           |
-| ------------- |:-------------|
-| `navbar`		| `Pingpong\Menus\Presenters\Bootstrap\NavbarPresenter` |
-| `navbar-right`| `Pingpong\Menus\Presenters\Bootstrap\NavbarRightPresenter` |
-| `nav-pills`	| `Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter` |
-| `nav-tab`		| `Pingpong\Menus\Presenters\Bootstrap\NavTabPresenter` |
+| Name          | Presenter Class                                             |
+| ------------- |:------------------------------------------------------------|
+| `navbar`		| `Pingpong\Menus\Presenters\Bootstrap\NavbarPresenter`       |
+| `navbar-right`| `Pingpong\Menus\Presenters\Bootstrap\NavbarRightPresenter`  |
+| `nav-pills`	| `Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter`     |
+| `nav-tab`		| `Pingpong\Menus\Presenters\Bootstrap\NavTabPresenter`       |
+| `sidebar`     | `Pingpong\Menus\Presenters\Bootstrap\SidebarMenuPresenter`  |
+| `navmenu`     | `Pingpong\Menus\Presenters\Bootstrap\NavMenuPresenter`      |
 
 <a name="make-a-custom-presenter"></a>
 **Make A Costum Presenter**
