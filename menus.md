@@ -3,8 +3,16 @@ Laravel Menus
 
 - [Installation](#installation)
 - [Creating A Menu](#creating-a-menu)
-- [Setting up Menu Presenter](#setting-up-menu-presenter)
-- [Rendering Menu to The View](#rendering-menu-to-the-view)
+  - [Menu Item](#menu-item)
+  - [Menu Dropdown](#menu-dropdown)
+  - [Menu Dropdown Milti Level](#menu-dropdown-multi-level)
+  - [Menu Divider](#menu-divider)
+  - [Dropdown Header](#dropdown-header)
+  - [Make Lots of Menu](#make-lots-of-menu)
+- [Menu Presenter](#menu-presenter)
+  - [Presenter Class](#presenter-class)
+  - [View Presenter](#view-presenter)
+- [Rendering Menu](#rendering-menu)
 
 <a name="installation"></a>
 ## Installation
@@ -51,7 +59,8 @@ Menu::create('navbar', function($menu)
 });
 ````
 
-**Defining Menu Items**
+<a name="menu-item"></a>
+**Menu Item**
 
 As explained before, we can defining menu item in the callback by accessing `$menu` variable, which the variable is instance of `Pingpong\Menus\MenuBuilder` class.
 
@@ -99,6 +108,7 @@ Menu::create('navbar', function($menu)
 });
 ```
 
+<a name="menu-dropdown"></a>
 **Menu Dropdown**
 
 To create a dropdown menu, you can call to `->dropdown()` method and passing the first parameter by title of dropdown and the second parameter by closure callback that retrive `$sub` variable. The `$sub` variable is the the instance of `Pingpong\Menus\MenuItem` class.
@@ -114,6 +124,9 @@ Menu::create('navbar', function($menu)
 	});
 });
 ```
+
+<a name="menu-dropdown-multi-level"></a>
+**Menu Dropdown Multi Level**
 
 You can also create a dropdown inside dropdown by using `->dropdown()` method. This will allow to to create a multilevel menu items.
 ```
@@ -132,7 +145,8 @@ Menu::create('navbar', function($menu)
 });
 ```
 
-**Divider and Dropdown Header**
+<a name="menu-divider"></a>
+**Menu Divider**
 
 You may also define a divider for each menu item. You can divide between menu item by using `->divider()` method.
 ```
@@ -143,6 +157,9 @@ Menu::create('navbar', function($menu)
 	$menu->url('profile', 'Profile')
 });
 ```
+
+<a name="dropdown-header"></a>
+**Dropdown Header**
 
 You may also add a dropdown header for the specified menu item by using `->header()` method.
 ```
@@ -158,9 +175,10 @@ Menu::create('navbar', function($menu)
 });
 ```
 
+<a name="make-lots-of-menu"></a>
 **Make Lots of menu**
 
-This package allows you to create a menu with a lot of different styles. Here's an example.
+You can also create a lots of menu with different name and menu items.
 
 ```php
 Menu::create('menu1', function($menu)
@@ -182,7 +200,7 @@ Menu::create('menu2', function($menu)
 <a name="rendering-a-menu"></a>
 ### Rendering A Menu
 
-To call up the menu you can use `render` or `get` method.
+To render the menu you can use `render` or `get` method.
 
 ```php
 Menu::render('navbar');
