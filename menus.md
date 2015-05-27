@@ -52,7 +52,7 @@ Then add the class alias in `aliases`.
 ```
 Then, publish configuration for package `pingpong/menus`:
 ```
-php artisan config:publish pingpong/menus
+php artisan vendor:publish
 ```
 Done.
 
