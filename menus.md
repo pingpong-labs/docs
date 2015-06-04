@@ -1,5 +1,6 @@
 # Laravel 5 Menus
 
+- [Upgrades](#upgrades)
 - [Installation](#installation)
 - [Creating A Menu](#creating-a-menu)
   - [Menu Item](#menu-item)
@@ -17,6 +18,20 @@
   - [The Available View Presenter](#available-view-presenter)
 - [Rendering Menu](#rendering-menu)
 - [Menu Instance](#menu-instance)
+
+<a name="upgrades"></a>
+## Upgrades
+
+#### **To 2.0.5**
+
+- Add new `ordering` config key in your `config/menus.php` file and set the value to false.
+
+````
+return [
+	// --more code here--
+	'ordering' => false
+];
+```
 
 <a name="installation"></a>
 ## Installation
