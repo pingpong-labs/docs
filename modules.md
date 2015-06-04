@@ -63,11 +63,7 @@ Next add the following service provider in `config/app.php`.
 
 ```php
 'providers' => array(
-
-// ...
-
-'Pingpong\Modules\ModulesServiceProvider',
-
+  'Pingpong\Modules\ModulesServiceProvider',
 ),
 ```
 
@@ -75,11 +71,7 @@ Next, add the following aliases to `aliases` array in the same file.
 
 ```
 'aliases' => array(
-
-// ...
-
-'Module' => 'Pingpong\Modules\Facades\Module',
-
+  'Module' => 'Pingpong\Modules\Facades\Module',
 ),
 
 ```
