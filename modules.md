@@ -20,7 +20,7 @@ Laravel Modules
 
 #### To 2.0.5
 
-Previously we add two service provider from this package. In version `2.0.5` we just need register one service provider. We now can remove `Pingpong\Modules\Providers\BootstrapServiceProvider` from `providers` array because now its service provider is registered automatically by `Pingpong\Modules\ModulesServiceProvider`.
+Previously, we add two service provider from this package. In version `2.0.5`, we just need register one service provider. Now, we can remove `Pingpong\Modules\Providers\BootstrapServiceProvider` from `providers` array, because now it service provider is registered automatically by `Pingpong\Modules\ModulesServiceProvider`.
 
 #### From Laravel 4 to Laravel 5
 
