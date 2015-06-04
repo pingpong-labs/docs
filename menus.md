@@ -7,6 +7,7 @@
   - [Menu Dropdown Milti Level](#menu-dropdown-multi-level)
   - [Menu Divider](#menu-divider)
   - [Dropdown Header](#dropdown-header)
+  - [Ordering Menu Item](#ordering-menu-item)
   - [Make Lots of Menu](#make-lots-of-menu)
 - [Menu Presenter](#menu-presenter)
   - [The Available Presenter](#available-presenter)
@@ -169,13 +170,43 @@ You may also add a dropdown header for the specified menu item by using `->heade
 Menu::create('navbar', function($menu)
 {
 	$menu->url('/', 'Home')
-	$menu->url('Settings', function ($sub) {
+	$menu->dropdown('Settings', function ($sub) {
 		$sub->header('ACCOUNT');
 		$sub->url('/settings/design', 'Design');
 		$sub->divider();
 		$sub->url('logout', 'Logout');
 	});
 });
+```
+
+<a name="ordering-menu-item"></a>
+**Ordering Menu Item**
+
+You may order the menu by specify `order` parameter.
+```
+Menu::create('navbar', function($menu)
+{
+	// url, title, order, attributes
+	$menu->url('/', 'Home', 1);
+	// url, title, route parameters, order, attributes
+	$menu->route('/', 'About', ['user' => '1'], 2);
+	// title, order, callback attributes
+	$menu->dropdown('Settings', 3, function ($sub) {
+		$sub->header('ACCOUNT');
+		$sub->url('/settings/design', 'Design');
+		$sub->divider();
+		$sub->url('logout', 'Logout');
+	});
+});
+```
+
+By default ordering feature is disabled. You can enable the `ordering` feature in your config file. Just update value of `ordering` config to `true` and now your menu will ordered by `order` key.
+
+```
+// File: config/menus.php
+return [
+	'ordering' => true
+];
 ```
 
 <a name="make-lots-of-menu"></a>
