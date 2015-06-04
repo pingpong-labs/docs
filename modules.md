@@ -18,6 +18,10 @@ Laravel Modules
 <a name="upgrade-guide"></a>
 ## Upgrade Guide
 
+#### To 2.0.5
+
+Previously we add two service provider from this package. In version `2.0.5` we just need register one service provider. We now can remove `Pingpong\Modules\Providers\BootstrapServiceProvider` from `providers` array because now its service provider is registered automatically by `Pingpong\Modules\ModulesServiceProvider`.
+
 #### From Laravel 4 to Laravel 5
 
 If upgrade your Laravel app from Laravel 4 to Laravel 5, there is a few things to do if you are using this package. You will receive some kind errors about config not loaded. To fix this issue, please follow this instruction.
@@ -63,7 +67,6 @@ Next add the following service provider in `config/app.php`.
 // ...
 
 'Pingpong\Modules\ModulesServiceProvider',
-'Pingpong\Modules\Providers\BootstrapServiceProvider',
 
 ),
 ```
