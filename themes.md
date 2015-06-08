@@ -4,6 +4,10 @@ Laravel Themes
 - [Installation](#installation)
 - [Usage](#usage)
 - [Artisan Commands](#artisan-commands)
+  - [theme:make](#theme-make-command)
+  - [theme:list](#theme-list-command)
+  - [theme:cache](#theme-cache-command)
+  - [theme:publish](#theme-publish-command)
 
 <a name="installation"></a>
 ## Installation
@@ -100,20 +104,26 @@ Theme::lang('group.name');
 <a name="artisan-commands"></a>
 ## Artisan Commands
 
-Show all available themes.
+<a name="theme-make-command"></a>
+Generate a new theme.
+```
+php artisan theme:make foo
+```
 
+<a name="theme-list-command"></a>
+Show all available themes.
 ```
 php artisan theme:list
 ```
 
+<a name="theme-cache-command"></a>
 Cache all themes.
-
 ```
 php artisan theme:cache
 ```
 
+<a name="theme-publish-command"></a>
 Publish all theme's assets.
-
 ```
 php artisan theme:publish
 ```
