@@ -21,13 +21,13 @@ Next, open a terminal and run.
 composer update 
 ```
 
-Next, Add new service provider in `app/config/app.php`.
+Next, Add new service provider in `config/app.php`.
 
 ```php
   'Pingpong\Trusty\TrustyServiceProvider',
 ```
 
-Next, Add new aliases in `app/config/app.php`.
+Next, Add new aliases in `config/app.php`.
 
 ```php
 'Trusty'      => 'Pingpong\Trusty\Facades\Trusty',

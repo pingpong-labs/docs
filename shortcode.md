@@ -21,7 +21,7 @@ Next, open a terminal and run.
   composer update 
 ```
 
-After the composer updated. Add new service provider in app/config/app.php.
+After the composer updated. Add new service provider in `config/app.php`.
 
 ```
   'Pingpong\Shortcode\ShortcodeServiceProvider'
