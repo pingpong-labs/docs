@@ -18,7 +18,7 @@ Laravel Modules
 <a name="upgrade-guide"></a>
 ## Upgrade Guide
 
-#### To 2.0.5
+#### To 2.0.10
 
 Previously, we add two service provider from this package. In version `2.0.5`, we just need register one service provider. Now, we can remove `Pingpong\Modules\Providers\BootstrapServiceProvider` from `providers` array, because now it service provider is registered automatically by `Pingpong\Modules\ModulesServiceProvider`.
 

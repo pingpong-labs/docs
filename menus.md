@@ -22,7 +22,7 @@
 <a name="upgrades"></a>
 ## Upgrades
 
-#### **To 2.0.5**
+#### **To 2.0.10**
 
 - Add new `ordering` config key in your `config/menus.php` file and set the value to false.
 
