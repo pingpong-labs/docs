@@ -1,20 +1,27 @@
-## Laravel Themes
+Laravel Themes
+===============
 
-[![Build Status](https://travis-ci.org/pingpong-labs/themes.svg?branch=master)](https://travis-ci.org/pingpong-labs/themes)
-[![Latest Stable Version](https://poser.pugx.org/pingpong/themes/v/stable.svg)](https://packagist.org/packages/pingpong/themes) [![Total Downloads](https://poser.pugx.org/pingpong/themes/downloads.svg)](https://packagist.org/packages/pingpong/themes) [![Latest Unstable Version](https://poser.pugx.org/pingpong/themes/v/unstable.svg)](https://packagist.org/packages/pingpong/themes) [![License](https://poser.pugx.org/pingpong/themes/license.svg)](https://packagist.org/packages/pingpong/themes)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Artisan Commands](#artisan-commands)
+  - [theme:make](#theme-make-command)
+  - [theme:list](#theme-list-command)
+  - [theme:cache](#theme-cache-command)
+  - [theme:publish](#theme-publish-command)
 
-### Installation
+<a name="installation"></a>
+## Installation
 
 Open your composer.json file, and add the new required package.
 ```
-   "pingpong/themes": "1.0.*"
+   "pingpong/themes": "~2.0"
 ```
 Next, open a terminal and run.
 ```
 composer update
 ```
 
-Next, Add new service provider in `app/config/app.php`.
+Next, Add new service provider in `config/app.php`.
 
 ```php
   'Pingpong\Themes\ThemesServiceProvider',
@@ -23,17 +30,18 @@ Next, Add new service provider in `app/config/app.php`.
 Next, Add new aliases in `app/config/app.php`.
 
 ```php
-   'Theme' => 'Pingpong\Themes\Facades\Theme',
+   'Theme' => 'Pingpong\Themes\ThemeFacade',
 ```
 
 Next, publish the asset. The asset is an example theme.
 ```
-php artisan asset:publish pingpong/themes
+php artisan vendor:publish
 ```
 
 Done.
 
-### Usage
+<a name="usage"></a>
+## Usage
 
 Get all themes.
 ```php
@@ -93,6 +101,35 @@ Get lang from current active theme.
 Theme::lang('group.name');
 ```
 
-### License
+<a name="artisan-commands"></a>
+## Artisan Commands
 
-This package is open-sourced software licensed under [The BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause)
+<a name="theme-make-command"></a>
+Generate a new theme.
+```
+php artisan theme:make foo
+```
+
+<a name="theme-list-command"></a>
+Show all available themes.
+```
+php artisan theme:list
+```
+
+<a name="theme-cache-command"></a>
+Cache all themes.
+```
+php artisan theme:cache
+```
+
+<a name="theme-publish-command"></a>
+Publish all theme's assets.
+```
+php artisan theme:publish
+```
+
+Publish all theme's assets from the specified theme.
+
+```
+php artisan theme:publish theme-name
+```

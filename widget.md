@@ -1,27 +1,24 @@
 Laravel Widget System
-==================================
+=====================
 
-[![Build Status](https://travis-ci.org/pingpong-labs/widget.svg?branch=master)](https://travis-ci.org/pingpong-labs/widget)
-[![Latest Stable Version](https://poser.pugx.org/pingpong/widget/v/stable.svg)](https://packagist.org/packages/pingpong/widget) [![Total Downloads](https://poser.pugx.org/pingpong/widget/downloads.svg)](https://packagist.org/packages/pingpong/widget) [![Latest Unstable Version](https://poser.pugx.org/pingpong/widget/v/unstable.svg)](https://packagist.org/packages/pingpong/widget) [![License](https://poser.pugx.org/pingpong/widget/license.svg)](https://packagist.org/packages/pingpong/widget)
+- [Installation](#installation)
+- [What's New](#whats-new)
+- [Registering Widget](#registering-widget)
+- [Calling Widget](#calling-widget)
+- [Grouping Widget](#grouping-widget)
 
-### Version Compability
-
- Laravel  | Pingpong Widget  | PHP 
-:---------|:-----------------|:----
- 4.x      | 1.*              |>= 5.3
- 5.0.x    | 2.0.*@dev        |>= 5.3
-
-### Installation
+<a name="installation"></a>
+## Installation
 
 Open your composer.json file and add the new required package.
 
 ```
-    "pingpong/widget" : "1.*"
+    "pingpong/widget" : "~2.0"
 ```
 
 Next, open your terminal and run `composer update`.
 
-After composer updated, add new service provider in `app/config/app.php` :
+After composer updated, add new service provider in `config/app.php` :
 
 ```php
     'Pingpong\Widget\WidgetServiceProvider',
@@ -30,12 +27,13 @@ After composer updated, add new service provider in `app/config/app.php` :
 And add facade in the same file
 
 ```php
-    'Widget' => 'Pingpong\Widget\Facades\Widget'
+    'Widget' => 'Pingpong\Widget\WidgetFacade'
 ```
 
 Done.
 
-### What's New!
+<a name="whats-new"></a>
+## What's New!
 
 Subscribe widget: It's a new way to register widget using a specified class. For example:
 
@@ -75,6 +73,7 @@ class WidgetSubscriber {
 }
 ```
 
+<a name="registering-widget"></a>
 ### Registering A Widget
 
 By default you can register a widget in `app/widgets.php`, that file will autoload automatically.
@@ -155,6 +154,7 @@ Widget::register('div', 'HTMLWidget@div');
 
 ```
 
+<a name="calling-widget"></a>
 ### Calling A Widget
 
 ```php
@@ -185,6 +185,7 @@ On view you can call like this.
 @div('Lorem ipsum', array('class' => 'alert alert-warning'));
 ```
 
+<a name="grouping-widget"></a>
 ### Grouping A Widget
 
 It is very easy to group widget. you only need to specify the group name and specify an array of the names of the widgets that will be grouped.
@@ -219,7 +220,3 @@ On view you can call a group of widgets is same as calling the widget.
 
 @sidebar(array('first-param'), array('first-param-for-second-widget'))
 ```
-
-### License
-
-This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

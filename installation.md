@@ -6,12 +6,13 @@
 ### Version Compability
 
  Laravel  | Pingpong Sky | PHP 
-:---------|:---------------|:----
- 4.x      | 1.x            |>= 5.4
- 5.0.x    | 2.*@dev        |>= 5.4
+:---------|:-------------|:----
+ 4.*      | 1.*          |>= 5.4
+ 5.0.*    | 2.0.*        |>= 5.4
+ 5.1.*@dev| 2.1.*@dev    |>= 5.4
 
 ### Quick Installation Via Composer
 
 ```
-composer require pingpong/sky
+composer require "pingpong/sky:~2.0"
 ```

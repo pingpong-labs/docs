@@ -1,23 +1,26 @@
 Laravel Generators
 ==========
 
-[![Build Status](https://travis-ci.org/pingpong-labs/generators.svg)](https://travis-ci.org/pingpong-labs/generators)
-[![Latest Stable Version](https://poser.pugx.org/pingpong/generators/v/stable.svg)](https://packagist.org/packages/pingpong/generators)
-[![Total Downloads](https://poser.pugx.org/pingpong/generators/downloads.svg)](https://packagist.org/packages/pingpong/generators)
-[![Latest Unstable Version](https://poser.pugx.org/pingpong/generators/v/unstable.svg)](https://packagist.org/packages/pingpong/generators)
-[![License](https://poser.pugx.org/pingpong/generators/license.svg)](https://packagist.org/packages/pingpong/generators)
+- [Installation](#installation)
+- [Artisan Commands](#artisan-commands)
+	- [Generate a controller](#controller)
+	- [Generate a model](#model)
+	- [Generate a console command](#console)
+	- [Generate a form request](#request)
+	- [Generate a migration](#migration)
+	- [Generate a pivot migration](#pivot)
+	- [Generate a seed](#seed)
+	- [Generate a view](#view)
+	- [Generate a scaffold](#scaffold)
 
-- [Installation](#quick-installation-via-composer)
-- [Documentation](#documentation)
-- [License](#license)
-
-### Quick Installation Via Composer
+<a name="installation"></a>
+## Installation
 
 ```
-composer require "pingpong/generators:1.*"
+composer require "pingpong/generators:~2.0"
 ```
 
-Next, register new service provider to `providers` array in `app/config/app.php`.
+Next, register new service provider to `providers` array in `config/app.php`.
 
 ```php
 'Pingpong\Generators\GeneratorsServiceProvider'
@@ -25,92 +28,160 @@ Next, register new service provider to `providers` array in `app/config/app.php`
 
 Done.
 
-### Documentation
+<a name="artisan-commands"></a>
+## Artisan Commands
 
-**Generate a new controller**
+In this package, there are many CLI commands that are useful to speed up you in creating web applications with Laravel. Some commands may already be familiar, such as the command to create a controller or model. However we are aware, sometimes we want everything instantly. Although not all of them can be so.
 
-```php
-$path = app_path('controllers');
+<a name="controller"></a>
+### Generate a new controller
 
-$generator = new Pingpong\Generators\ControllerGenerator($path, 'HomeController');
+Generate a basic controller.
 
-$generator->generate();
+```terminal
+php artisan generate:controller UsersController
 ```
 
-You may also set the namespace for the class by specify the `namespace` key in the `options` array. The `options` array is the third argument in the generator class. For example :
+Generate a resource controller.
 
-```php
-$options = ['namespace' => 'App\\Controllers'];
-
-$generator = new Pingpong\Generators\ControllerGenerator($path, 'HomeController', $options);
-
-$generator->generate();
+```terminal
+php artisan generate:controller UsersController --resource
+# OR
+php artisan generate:controller UsersController -r
 ```
 
-**Generate a new model**
+Generate a scaffolded controller.
 
-```php
-$generator = new Pingpong\Generators\ModelGenerator($path, 'User');
-
-$generator->generate();
+```
+php artisan generate:controller UsersController --scaffold
+# OR
+php artisan generate:controller UsersController -s
 ```
 
-**Generate a new seed**
+<a name="model"></a>
+### Generate a new model
 
 ```php
-$generator = new Pingpong\Generators\SeedGenerator($path, 'UsersTableSeeder');
+php artisan generate:model User
 
-$generator->generate();
+php artisan generate:model Users/User
 ```
 
-**Generate a new filter**
+<a name="console"></a>
+### Generate a new console
 
-```php
-$generator = new Pingpong\Generators\FilterGenerator($path, 'AdminFilter');
+```
+php artisan generate:console FooCommand
 
-$generator->generate();
+php artisan generate:console FooCommand --command="foo" --description="a console"
 ```
 
-**Generate a new form request**
+<a name="request"></a>
+### Generate a new form request
 
-```php
-$generator = new Pingpong\Generators\FormRequestGenerator($path, 'LoginRequest');
-
-$generator->generate();
+```
+php artisan generate:request CreateUserRequest
 ```
 
-**Generate a new command**
+You can also specify `rules`.
 
-```php
-$generator = new Pingpong\Generators\CommandGenerator($path, 'FooCommand');
+```
+php artisan generate:request CreateUserRequest --rules="username:required, email:required,email"
 
-$generator->generate();
+php artisan generate:request CreateUserRequest --rules="username:unique(users;username)"
 ```
 
-**Generate a new service provider**
+<a name="migration"></a>
+### Generate a new migration
 
-```php
-$generator = new Pingpong\Generators\ProviderGenerator($path, 'BarServiceProvider');
+Generate a basic migration.
 
-$generator->generate();
+```
+php artisan generate:migration create_users_table
 ```
 
-**Generate a new migration**
+Generate a migration with specify the fields.
 
-```php
-use Pingpong\Generate\MigrationGenerator;
-
-$generator = new MigrationGenerator($path, 'create_users_table');
-
-$generator = new MigrationGenerator($path, 'create_users_table', 'name:string, username:string');
-
-$generator = new MigrationGenerator($path, 'add_remember_token_to_users_table', 'remember_token:string:nullable');
-
-$generator = new MigrationGenerator($path, 'remove_username_from_users_table', 'username:string');
-
-$generator = new MigrationGenerator($path, 'drop_users_table', 'name:string, username:string');
+```
+php artisan generate:migration create_users_table --fields="username:string, email:string:unique, remember_token, soft_delete"
 ```
 
-### License
+Add new field to an existing table.
+```
+php artisan generate:migration add_password_to_users_table --fields="password:string"
+```
 
-This package is open-sourced software licensed under [The BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause)
+Remove column from the specified table.
+
+```
+php artisan generate:migration remove_password_from_users_table --fields="password:string"
+```
+
+Drop the specified table.
+```
+php artisan generate:migration drop_users_table
+```
+
+<a name="pivot"></a>
+### Generate a pivot
+
+```terminal
+php artisan generate:pivot users roles
+```
+
+<a name="seed"></a>
+### Generate a seed class
+
+Create a basic database seeder class.
+
+```terminal
+php artisan generate:seed users
+```
+
+<a name="view"></a>
+### Generate a view
+
+Basic usage.
+
+```terminal
+php artisan generate:view index
+```
+
+Auto generate folder.
+
+```terminal
+php artisan generate:view users/index
+```
+
+Generate a plain/blank view.
+
+```terminal
+php artisan generate:view users/index --plain
+```
+
+Generate a master view.
+
+```terminal
+php artisan generate:view layouts/master --master
+```
+
+<a name="scaffold"></a>
+### Generate a scaffold resource
+
+For some cases, we may need to be faster in making resource. Let's say we're making a CRUD. First we have to create a migration, then the controller, and then the model and the others stuffs. If we use the commands to make it one by one, it is inefficient and will take a long time. That is where the "generate:scaffold" useful. With this command, we can create a CRUD with just one command.
+
+```
+php artisan generate:scaffold task --fields="name:string, description=text"
+```
+
+From the example above we can see how easy it is to create a crud just one command. The first parameter is the name of the entity being in the singular convention. For example, if you want to create users CRUD, you just need to use user. You have to follow singular convention.
+
+```
+php artisan generate:scaffold user
+```
+
+You can also specify the option `prefix` for this command. It is used as a `prefix` controller path , views, and also the route.
+
+```
+php artisan generate:scaffold task --fields="name:string, description=text" --prefix=admin
+```

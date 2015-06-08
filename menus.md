@@ -1,218 +1,233 @@
-Laravel Menus
-========================
+# Laravel 5 Menus
 
-[![Build Status](https://travis-ci.org/pingpong-labs/menus.svg)](https://travis-ci.org/pingpong-labs/menus)
-[![Latest Stable Version](https://poser.pugx.org/pingpong/menus/v/stable.svg)](https://packagist.org/packages/pingpong/menus) [![Total Downloads](https://poser.pugx.org/pingpong/menus/downloads.svg)](https://packagist.org/packages/pingpong/menus) [![Latest Unstable Version](https://poser.pugx.org/pingpong/menus/v/unstable.svg)](https://packagist.org/packages/pingpong/menus) [![License](https://poser.pugx.org/pingpong/menus/license.svg)](https://packagist.org/packages/pingpong/menus)
+- [Upgrades](#upgrades)
+- [Installation](#installation)
+- [Creating A Menu](#creating-a-menu)
+  - [Menu Item](#menu-item)
+  - [Menu Dropdown](#menu-dropdown)
+  - [Menu Dropdown Milti Level](#menu-dropdown-multi-level)
+  - [Menu Divider](#menu-divider)
+  - [Dropdown Header](#dropdown-header)
+  - [Ordering Menu Item](#ordering-menu-item)
+  - [Make Lots of Menu](#make-lots-of-menu)
+- [Menu Presenter](#menu-presenter)
+  - [The Available Presenter](#available-presenter)
+  - [Make A Custom Presenter](#make-a-custom-presenter)
+  - [Register A New Menu Style](#register-a-menu-style)
+- [View Presenter](#view-presenter)
+  - [The Available View Presenter](#available-view-presenter)
+- [Rendering Menu](#rendering-menu)
+- [Menu Instance](#menu-instance)
 
-### Version Compability
+<a name="upgrades"></a>
+## Upgrades
 
- Laravel  | Pingpong Menus | PHP 
-:---------|:---------------|:----
- 4.x      | 1.x            |>= 5.3
- 5.0.x    | 2.*@dev        |>= 5.4
+#### **To 2.0.10**
 
-### Installation
+- Add new `ordering` config key in your `config/menus.php` file and set the value to false.
 
-First, open your `composer.json` file and add new package.
+````
+return [
+	// --more code here--
+	'ordering' => false
+];
 ```
-    "require": {
-        "pingpong/menus": "1.0.*" 
-    },
+
+<a name="installation"></a>
+## Installation
+
+You can install the through composer command line.
+
 ```
-Then open a terminal and run:
+composer require pingpong/menus
 ```
-composer update 
-```
-After that, open the file `app/config/app.php` and add a new service provider in `providers` array.
+
+After the package installed, add a new service provider to the `providers` array in `config/app.php` file.
+
 ```php
-   
-	'providers' => array(
-
-		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-		'Illuminate\Auth\AuthServiceProvider',		
-		...
-		'Illuminate\View\ViewServiceProvider',
-		'Illuminate\Workbench\WorkbenchServiceProvider',
-		
-		// here
-		'Pingpong\Menus\MenusServiceProvider'
-
-	),
+'providers' => array(
+	'Pingpong\Menus\MenusServiceProvider'
+),
 ```
-Then add the class alias in `aliases`.
+
+Add new alias for `Menu` facade to the `aliases` array at the same file.
+
 ```php
-
-	'aliases' => array(
-
-		'App'             => 'Illuminate\Support\Facades\App',
-		'Artisan'         => 'Illuminate\Support\Facades\Artisan',		
-		...		
-		'Validator'       => 'Illuminate\Support\Facades\Validator',
-		'View'            => 'Illuminate\Support\Facades\View',
-		
-		// here
-		'Menu'          =>  'Pingpong\Menus\Facades\Menu',
-	)
-```
-Then, publish configuration for package `pingpong/menus`:
-
-Laravel 4.*
-```
-php artisan config:publish pingpong/menus
+'aliases' => array(
+	'Menu' => 'Pingpong\Menus\MenuFacade',
+)
 ```
 
-Laravel 5.
+Then, publish package's assets by running:
+
 ```
 php artisan vendor:publish
 ```
 
-Done.
+<a name="creating-a-menu"></a>
+## Creating A Menu
 
-### Screenshot
+You can define your menus in `app/Support/menus.php` file. That file will loaded automatically by this package.
 
-![View Screenshot](https://raw.githubusercontent.com/pingpong-labs/menus/master/shots/multilevel-menu-pingpong.png)
+To create a menu, simply call the `create` method from `Menu` facade. The first parameter is the menu name and the second parameter is callback for defining menu items.
 
-### Example Usage
-
-**NEW!**
-
-On `app/menus.php` :
-```php
-
-// app/menus.php
-
-use Pingpong\Menus\Builder;
-use Pingpong\Menus\MenuItem;
-
-Menu::create('top', function(Builder $menu)
-{
-    // simple using route
-    $menu->route('home', 'Home');
-    // simple using route with parameters and attributes
-    $menu->route('profile.user', 'View Profile', ['username' => 'gravitano'], ['class' => 'btn btn-default']);
-    // using array
-    $menu->add([
-        'url'   =>  'messages',
-        'title' =>  'Messages',
-        'icon'  =>  'fa fa-envelope'
-    ]);
-    // using url
-    $menu->url('products', 'Products');
-    // using url with attributes
-    $menu->url('products/1', 'View Products', ['class' => 'btn btn-link']);
-    // new! support dropdown with multi level nested menu
-    $menu->dropdown('Settings', function(MenuItem $sub)
-    {
-        $sub->url('profile/edit', 'Edit Profile');
-        $sub->dropdown('Account', function(MenuItem $sub)
-        {
-            $sub->url('settings/payment', 'Payment');
-            // nested menu
-            $sub->dropdown('Social Network', function(MenuItem $sub)
-            {
-                $sub->url('https://github.com/gravitano', 'Github', ['target' => '_blank']);
-                $sub->url('https://facebook.com/warsono.m.faisyal', 'Facebook', ['target' => '_blank']);
-                $sub->url('https://twitter.com/gravitano', 'Twitter', ['target' => '_blank']);
-            });
-        });
-        $sub->url('logout', 'Logout');
-    });
-});
-```
-
-On view, for example `hello.blade.php`.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Laravel PHP Framework</title>
-	{{ HTML::style('css/bootstrap.css') }}
-	{{-- Add new style for allowing multi level menu --}}
-    {{ Menu::style() }}
-</head>
-<body>
-
-    <div class="container">
-        {{ Menu::get('top') }}
-    </div>
-
-    {{ HTML::script('js/jquery.min.js') }}
-    {{ HTML::script('js/bootstrap.min.js') }}
-</body>
-</html>
-```
-
-First, create a file called `menus.php` in your `app/` folder, alongside with `routes.php` and `filters.php`. The file will be automatically include if the file exists. And you can define your menus in that file.
-
-**Creating a menu.**
 ```php
 Menu::create('navbar', function($menu)
 {
-    // using array
-	$menu->add([
-		'route'	=>	'home',
-		'title'	=>	'Home',
-		'icon'  =>  'fa fa-dashboard'
-	]);
-
-	// menu with target to url
-	$menu->url('/', 'Home');
-
-	// with additional attributes
-	$menu->url('/', 'Home', ['class' => 'nav-link']);
-
-	// menu with target to registered route
-	$menu->route('home', 'Home');
-
-	// with additional route parameters and attributes
-	$menu->route('home', 'Home', null, ['class' => 'nav-link']);
-
-	$menu->route('users.show', Auth::user()->name, Auth::id(), ['class' => 'nav-link']);
-
-	$menu->route('users.show', 'My Profile', ['username' => 'gravitano'], ['class' => 'nav-link']);
-
-	$menu->route('products.show', 'View Product', 1, ['class' => 'nav-link']);
-
-	// dropdown menu
-	$menu->dropdown('Settings', function($sub)
-	{
-	    $sub->url('settings/account', 'Account');
-	    $sub->route('settings.profile', 'Profile');
-	    $sub->route('logout', 'Logout');
-	});
-
-	// multi level menu (nested)
-	$menu->dropdown('Category', function($sub)
-	{
-	    $sub->url('category/programming', 'Programming');
-
-	    $sub->url('category/screencasts', 'Screencasts');
-
-	    $sub->dropdown('Sport News', function($sub)
-	    {
-	        $sub->url('category/football', 'Football');
-	        $sub->url('category/basket-ball', 'Basket Ball');
-	    });
-
-	    $sub->dropdown('Title', function($sub)
-	    {
-	        $sub->url('link', 'Link');
-	        $sub->dropdown('Title', function($sub)
-	        {
-	            $sub->dropdown('Title N', function($sub)
-	            {
-	                // more nested menu here
-	            });
-	        });
-	    });
-	});
+	// define your menu items hereq
 });
 ````
 
+<a name="menu-item"></a>
+**Menu Item**
+
+As explained before, we can defining menu item in the callback by accessing `$menu` variable, which the variable is instance of `Pingpong\Menus\MenuBuilder` class.
+
+To defining a plain URL, you can use `->url()` method.
+```php
+Menu::create('navbar', function($menu)
+{
+              // URL , Title,  Attributes
+	$menu->url('home', 'Home', ['target' => 'blank']);
+});
+```
+
+If you have named route, you define the menu item by calling `->route()` method.
+```php
+Menu::create('navbar', function($menu)
+{
+	$menu->route(
+		'users.show', // route name
+		'View Profile', // title
+		['id' => 1], // route parameters
+		['target' => 'blank'] // attributes
+	);
+});
+```
+
+You can also defining the menu item via array by calling `->add()` method.
+```php
+Menu::create('navbar', function($menu)
+{
+	$menu->add([
+		'url' => 'about',
+		'title' => 'About',
+		'attributes' => [
+			'target' => '_blank'
+		]
+	]);
+
+	$menu->add([
+		'route' => ['profile', ['user' => 'gravitano']],
+		'title' => 'Visit My Profile',
+		'attributes' => [
+			'target' => '_blank'
+		]
+	]);
+});
+```
+
+<a name="menu-dropdown"></a>
+**Menu Dropdown**
+
+To create a dropdown menu, you can call to `->dropdown()` method and passing the first parameter by title of dropdown and the second parameter by closure callback that retrive `$sub` variable. The `$sub` variable is the the instance of `Pingpong\Menus\MenuItem` class.
+
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->url('/', 'Home');
+	$menu->dropdown('Settings', function ($sub) {
+		$sub->url('settings/account', 'Account');
+		$sub->url('settings/password', 'Password');
+		$sub->url('settings/design', 'Design');
+	});
+});
+```
+
+<a name="menu-dropdown-multi-level"></a>
+**Menu Dropdown Multi Level**
+
+You can also create a dropdown inside dropdown by using `->dropdown()` method. This will allow to to create a multilevel menu items.
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->url('/', 'Home');
+	$menu->dropdown('Account', function ($sub) {
+		$sub->url('profile', 'Visit My Profile');
+		$sub->dropdown('Settings', function ($sub) {
+			$sub->url('settings/account', 'Account');
+			$sub->url('settings/password', 'Password');
+			$sub->url('settings/design', 'Design');
+		});
+		$sub->url('logout', 'Logout');
+	});
+});
+```
+
+<a name="menu-divider"></a>
+**Menu Divider**
+
+You may also define a divider for each menu item. You can divide between menu item by using `->divider()` method.
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->url('/', 'Home');
+	$menu->divider();
+	$menu->url('profile', 'Profile')
+});
+```
+
+<a name="dropdown-header"></a>
+**Dropdown Header**
+
+You may also add a dropdown header for the specified menu item by using `->header()` method.
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->url('/', 'Home')
+	$menu->dropdown('Settings', function ($sub) {
+		$sub->header('ACCOUNT');
+		$sub->url('/settings/design', 'Design');
+		$sub->divider();
+		$sub->url('logout', 'Logout');
+	});
+});
+```
+
+<a name="ordering-menu-item"></a>
+**Ordering Menu Item**
+
+You may order the menu by specify `order` parameter.
+```
+Menu::create('navbar', function($menu)
+{
+	// url, title, order, attributes
+	$menu->url('/', 'Home', 1);
+	// url, title, route parameters, order, attributes
+	$menu->route('/', 'About', ['user' => '1'], 2);
+	// title, order, callback attributes
+	$menu->dropdown('Settings', 3, function ($sub) {
+		$sub->header('ACCOUNT');
+		$sub->url('/settings/design', 'Design');
+		$sub->divider();
+		$sub->url('logout', 'Logout');
+	});
+});
+```
+
+By default ordering feature is disabled. You can enable the `ordering` feature in your config file. Just update value of `ordering` config to `true` and now your menu will ordered by `order` key.
+
+```
+// File: config/menus.php
+return [
+	'ordering' => true
+];
+```
+
+<a name="make-lots-of-menu"></a>
 **Make Lots of menu**
 
-This package allows you to create a menu with a lot of different styles. Here's an example.
+You can also create a lots of menu with different name and menu items.
 
 ```php
 Menu::create('menu1', function($menu)
@@ -231,39 +246,57 @@ Menu::create('menu2', function($menu)
 });
 ```
 
-**Calling a menu.**
+<a name="menu-presenter"></a>
+### Menu Presenter
 
-To call up the menu you can use `render` or `get` method.
+This package included with some presenter classes that used for converting menu to html tag. By default the generated menu style is `bootstrap navbar`. But, there are also several different menu styles.
 
-```php
-Menu::render('navbar');
+You can apply the menu style via `->style()` method.
 
-Menu::get('menu1');
-
-Menu::get('menu2');
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->style('nav-pills');
+});
 ```
 
-**Menu Style.**
-
-By default the generated menu style is bootstrap navbar. In addition there are also several different menu styles and is already available by default are `navbar`, `navbar-right`, `nav-pills` and `nav-tab`. To set the style menu you can use the method `style`. Examples like this.
+Or you can set which presenter to present the menu style via `->setPresenter()` method.
 
 ```php
 Menu::create('navbar', function($menu)
 {
-	$menu->style('nav-pills');
-
-	$menu->route('home', 'Home');
-
-	$menu->url('profile', 'Profile');
+	$menu->setPresenter('Pingpong\Menus\Presenters\Bootstrap\NavTabPresenter');
 });
 ```
 
-**Make A Costum Presenter**
-
-You can create your own presenter class. Make sure your presenter is extends to `Pingpong\Menus\Presenters\Presenter`, that class is also `implements` to 'Pingpong\Menus\Presenters\PresenterInterface'. For example this is zurb topbar presenter. 
+You can also set which style of presenter when you rendering a menu.
 
 ```php
+Menu::render('navbar', 'navbar-right');
 
+Menu::render('navbar', 'Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter');
+```
+
+<a name="available-presenter"></a>
+**The List of Available Menu Presenter Class**
+
+| Name          | Presenter Class                                             |
+| ------------- |:------------------------------------------------------------|
+| `navbar`		| `Pingpong\Menus\Presenters\Bootstrap\NavbarPresenter`       |
+| `navbar-right`| `Pingpong\Menus\Presenters\Bootstrap\NavbarRightPresenter`  |
+| `nav-pills`	| `Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter`     |
+| `nav-tab`		| `Pingpong\Menus\Presenters\Bootstrap\NavTabPresenter`       |
+| `sidebar`     | `Pingpong\Menus\Presenters\Bootstrap\SidebarMenuPresenter`  |
+| `navmenu`     | `Pingpong\Menus\Presenters\Bootstrap\NavMenuPresenter`      |
+
+<a name="make-a-custom-presenter"></a>
+**Make A Costum Presenter**
+
+You can create your own presenter class. Make sure your presenter is extends to `Pingpong\Menus\Presenters\Presenter` and `implements` to 'Pingpong\Menus\Presenters\PresenterInterface'.
+
+For example, this is `zurb-top-bar` presenter. 
+
+```php
 use Pingpong\Menus\Presenters\Presenter;
 
 class ZurbTopBarPresenter extends Presenter
@@ -326,29 +359,19 @@ class ZurbTopBarPresenter extends Presenter
 }
 
 ```
-For use costum presenter, you can use the `setPresenter` method, for example like this.
+To use this costum presenter, you can use the `setPresenter` method.
+
 ```php
 Menu::create('zurb-top-bar', function($menu)
 {
 	$menu->setPresenter('ZurbTopBarPresenter');
-
-	$menu->route('home', 'Home');
-
-	$menu->url('profile', 'Profile');
 });
 ```
 
-Or you can set it at the time of calling the menu, like this.
+<a name="register-a-menu-style"></a>
+**Register A New Menu Style**
 
-```php
-Menu::render('zurb-top-bar', 'ZurbTopBarPresenter');
-
-Menu::get('zurb-top-bar', 'ZurbTopBarPresenter');
-```
-
-**Register A New Style Menu**
-
-This Style is like an alias to a presenter. You can register your style from your costum presenter in the configuration file in  `app/config/packages/pingpong/menus/config.php`. Like this.
+Menu style is like an alias to a presenter. You can register your style from your costum presenter in the configuration file in `config/menus.php`.
 
 ```php
 return array(
@@ -361,25 +384,67 @@ return array(
 );
 ```
 
-Then you can use a style like this. Same as section **Menu Style** above.
+Now, you can use a style like this.
 
 ```php
 Menu::create('zurb-top-bar', function($menu)
 {
 	$menu->style('zurb-top-bar');
-	$menu->add([
-		'route'	=>	'home',
-		'title'	=>	'Home',
-	]);
-	$menu->url('profile', 'Profile');
-
-	$menu->route('settings', 'Settings');
 });
 ```
 
-**Get The Menu Instance**
+<a name="view-presenter"></a>
+### View Presenter
 
-To get an instance of an existing menu, you can use the `instance` method. Here's an example.
+If you don't like to use presenter class, you use view presenter instead. We can set which view to present the menus by calling `->setView()` method.
+
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->setView('menus::default');
+});
+```
+
+<a name="available-view-presenter"></a>
+**The List of Available View Presenter**
+
+| View Name                    | Menu Style                   |
+| ---------------------------- |:-----------------------------|
+| `menus::default`		       | Bootstrap Navbar (default)   |
+| `menus::navbar-left`		   | Bootstrap Navbar Left        |
+| `menus::navbar-right`		   | Bootstrap Navbar Right       |
+| `menus::nav-tabs`		       | Bootstrap Nav Tabs           |
+| `menus::nav-tabs-justified`  | Bootstrap Nav Tabs Justified |
+| `menus::nav-pills`		   | Bootstrap Nav Pills          |
+| `menus::nav-pills-stacked`   | Bootstrap Nav Pills Stacked  |
+| `menus::nav-pills-justified` | Bootstrap Nav Pills Justified|
+| `menus::menu`                | Plain Menu                   |
+
+<a name="rendering-menu"></a>
+### Rendering Menu
+
+To render the menu you can use `render` or `get` method.
+
+```php
+Menu::render('navbar');
+
+Menu::get('navbar');
+```
+
+You can also set which style to present the menu in the second parameter.
+```
+Menu::render('navbar', 'navbar-right');
+```
+
+Or you may also set which view to present the menu.
+```
+Menu::render('navbar', 'menus::nav-tabs');
+```
+
+<a name="menu-instance"></a>
+### The Menu Instance
+
+Sometimes, maybe we need to add a new additional menu from controller or other place. To get an instance of an existing menu, you can use the `instance` method.
 
 ```php
 $menu = Menu::instance('zurb-top-bar');
@@ -392,7 +457,3 @@ $menu->url('profile', 'Profile');
 
 $menu->route('settings', 'Settings');
 ```
-
-### License
-
-This package is open-sourced software licensed under [The BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause)
