@@ -3,7 +3,15 @@ Laravel Generators
 
 - [Installation](#installation)
 - [Artisan Commands](#artisan-commands)
-- [Scaffolding](#scaffold)
+	- [Generate a controller](#controller)
+	- [Generate a model](#model)
+	- [Generate a console command](#console)
+	- [Generate a form request](#request)
+	- [Generate a migration](#migration)
+	- [Generate a pivot migration](#pivot)
+	- [Generate a seed](#seed)
+	- [Generate a view](#view)
+	- [Generate a scaffold](#scaffold)
 
 <a name="installation"></a>
 ## Installation
@@ -12,7 +20,7 @@ Laravel Generators
 composer require "pingpong/generators:~2.0"
 ```
 
-Next, register new service provider to `providers` array in `app/config/app.php`.
+Next, register new service provider to `providers` array in `config/app.php`.
 
 ```php
 'Pingpong\Generators\GeneratorsServiceProvider'
@@ -24,16 +32,6 @@ Done.
 ## Artisan Commands
 
 In this package, there are many CLI commands that are useful to speed up you in creating web applications with Laravel. Some commands may already be familiar, such as the command to create a controller or model. However we are aware, sometimes we want everything instantly. Although not all of them can be so.
-
-- [Generate a controller](#controller)
-- [Generate a model](#model)
-- [Generate a console command](#console)
-- [Generate a form request](#request)
-- [Generate a migration](#migration)
-- [Generate a pivot migration](#pivot)
-- [Generate a seed](#seed)
-- [Generate a view](#view)
-- [Generate a scaffold](#scaffold)
 
 <a name="controller"></a>
 ### Generate a new controller
