@@ -3,6 +3,15 @@ Laravel 5 Themes
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Get All Themes](#get-all-themes)
+  - [Set Active Theme](#set-active-theme)
+  - [Get Current Theme](#get-current-theme)
+  - [Check Theme](#check-theme)
+  - [Set Themes Path](#set-themes-path)
+  - [Get Themes Path](#get-themes-path)
+  - [Get Theme's Path](#get-theme-path)
+  - [Get Theme's View](#get-theme-view)
+  - [Get Theme's Lang](#get-theme-lang)
 - [Artisan Commands](#artisan-commands)
   - [theme:make](#theme-make-command)
   - [theme:list](#theme-list-command)
@@ -43,11 +52,13 @@ Done.
 <a name="usage"></a>
 ## Usage
 
+<a name="get-all-themes"></a>
 Get all themes.
 ```php
 Theme::all();
 ```
 
+<a name="set-active-theme"></a>
 Set theme active.
 ```php
 Theme::set('default');
@@ -55,11 +66,13 @@ Theme::set('default');
 Theme::setCurrent('default');
 ```
 
+<a name="get-current-theme"></a>
 Get current theme active.
 ```php
 Theme::getCurrent();
 ```
 
+<a name="check-theme"></a>
 Check theme.
 ```php
 Theme::has('simple')
@@ -67,6 +80,7 @@ Theme::has('simple')
 Theme::exists('other-theme');
 ```
 
+<a name="set-themes-path"></a>
 Set theme path.
 ```php
 $path = public_path('themes');
@@ -74,16 +88,19 @@ $path = public_path('themes');
 Theme::setPath($path);
 ```
 
+<a name="get-theme-path"></a>
 Get theme path.
 ```php
 Theme::getThemePath('default');
 ```
 
+<a name="get-themes-path"></a>
 Get themes path.
 ```php
 Theme::getPath();
 ```
 
+<a name="get-theme-view"></a>
 Get view from current active theme.
 ```php
 Theme::view('index');
@@ -91,15 +108,12 @@ Theme::view('index');
 Theme::view('folders.view');
 ```
 
-Get config from current active theme.
-```php
-Theme::config('group.name');
-```
-
-Get lang from current active theme.
+<a name="get-theme-lang"></a>
+Get translation value from active theme.
 ```php
 Theme::lang('group.name');
 ```
+
 
 <a name="artisan-commands"></a>
 ## Artisan Commands
