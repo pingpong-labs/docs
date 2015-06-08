@@ -12,6 +12,7 @@ Laravel 5 Themes
   - [Get Theme's Path](#get-theme-path)
   - [Get Theme's View](#get-theme-view)
   - [Get Theme's Lang](#get-theme-lang)
+  - [Get Theme's Config](#get-theme-config)
 - [Artisan Commands](#artisan-commands)
   - [theme:make](#theme-make-command)
   - [theme:list](#theme-list-command)
@@ -23,7 +24,7 @@ Laravel 5 Themes
 
 Open your composer.json file, and add the new required package.
 ```
-   "pingpong/themes": "~2.0"
+"pingpong/themes": "~2.0"
 ```
 Next, open a terminal and run.
 ```
@@ -33,16 +34,16 @@ composer update
 Next, Add new service provider in `config/app.php`.
 
 ```php
-  'Pingpong\Themes\ThemesServiceProvider',
+'Pingpong\Themes\ThemesServiceProvider',
 ```
 
-Next, Add new aliases in `app/config/app.php`.
+Next, Add new aliases in `config/app.php`.
 
 ```php
-   'Theme' => 'Pingpong\Themes\ThemeFacade',
+'Theme' => 'Pingpong\Themes\ThemeFacade',
 ```
 
-Next, publish the asset. The asset is an example theme.
+Next, publish the package's assets.
 ```
 php artisan vendor:publish
 ```
@@ -114,6 +115,29 @@ Get translation value from active theme.
 Theme::lang('group.name');
 ```
 
+<a name="get-theme-config"></a>
+Get theme's config value from active theme.
+```php
+Theme::config('filename.key');
+
+Theme::config('filename.key.subkey');
+
+Theme::config('filename.key.subkey', 'default value here');
+```
+If your theme's config file named `config.php`, you can get the value of config little bit short.
+```php
+Theme::config('key');
+
+Theme::config('key.subkey');
+```
+
+You can also get config value from other theme.
+```php
+// current theme
+Theme::config('key');
+// from other theme
+Theme::config('bootstrap::key');
+```
 
 <a name="artisan-commands"></a>
 ## Artisan Commands
@@ -137,7 +161,7 @@ php artisan theme:cache
 ```
 
 <a name="theme-publish-command"></a>
-Publish all theme's assets.
+Publish all theme's assets from all themes.
 ```
 php artisan theme:publish
 ```
