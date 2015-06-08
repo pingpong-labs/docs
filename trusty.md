@@ -1,4 +1,4 @@
-Trusty - Roles Based On Permission
+Trusty - Roles and Permissions for Laravel 5
 ======
 
 - [Installation](#installation)

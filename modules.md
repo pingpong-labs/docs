@@ -1,4 +1,4 @@
-Laravel Modules
+Laravel 5 Modules
 ===============
 
 - [Upgrade Guide](#upgrade-guide)

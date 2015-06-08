@@ -1,4 +1,4 @@
-Laravel Themes
+Laravel 5 Themes
 ===============
 
 - [Installation](#installation)

@@ -1,4 +1,4 @@
-Laravel View Presenter
+Laravel 5 View Presenter
 =============================
 
 - [Installation](#installation)

@@ -1,4 +1,4 @@
-Laravel Widget System
+Laravel 5 Widget
 =====================
 
 - [Installation](#installation)

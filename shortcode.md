@@ -1,4 +1,4 @@
-Laravel Shortcode
+Laravel 5 Shortcode
 =========
 
 - [Installation](#installation)

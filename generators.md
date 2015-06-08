@@ -1,4 +1,4 @@
-Laravel Generators
+Laravel 5 Generators
 ==========
 
 - [Installation](#installation)
