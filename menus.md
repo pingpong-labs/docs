@@ -17,7 +17,9 @@
 - [View Presenter](#view-presenter)
   - [The Available View Presenter](#available-view-presenter)
 - [Rendering Menu](#rendering-menu)
-- [Menu Instance](#menu-instance)
+- [Menu Inheritance](#menu-inheritance)
+  - [Menu Instance](#menu-instance)
+  - [Finding Menu Item](#finding-menu-item)
 
 <a name="upgrades"></a>
 ## Upgrades
@@ -441,6 +443,8 @@ Or you may also set which view to present the menu.
 Menu::render('navbar', 'menus::nav-tabs');
 ```
 
+<a name="menu-inheritance"></a>
+
 <a name="menu-instance"></a>
 ### The Menu Instance
 
@@ -456,4 +460,34 @@ $menu->add(['title' => 'Settings', 'route' => 'settings']);
 $menu->url('profile', 'Profile');
 
 $menu->route('settings', 'Settings');
+```
+
+<a name="finding-menu-item"></a>
+### Finding Menu Item
+
+To find menu item, you can use `findBy` method from `Pingpong\Menus\MenuBuilder` class.
+
+```
+$menu = Menu::instance('sidebar');
+
+$menu->url('profile', 'Profile');
+
+$menuItem = $menu->findBy('title', 'Profile');
+
+// add child menu
+$menuItem->url('foo', 'Foo');
+```
+
+You may also use `whereTitle` helper method to find a specific menu item. Also, you can add other child menu item in the callback that located in the second argument in `whereTitle` method.
+```
+$menu = Menu::instance('sidebar');
+
+$menu->url('profile', 'Profile');
+
+$menu->whereTitle('Profile', function ($sub)
+{
+	$sub->url('foo', 'Foo');
+});
+
+// add childs menu
 ```
