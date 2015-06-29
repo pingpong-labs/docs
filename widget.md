@@ -13,7 +13,7 @@ Laravel 5 Widget
 Open your composer.json file and add the new required package.
 
 ```
-    "pingpong/widget" : "~2.0"
+    "pingpong/widget" : "~2.1"
 ```
 
 Next, open your terminal and run `composer update`.

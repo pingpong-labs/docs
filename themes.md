@@ -24,7 +24,7 @@ Laravel 5 Themes
 
 Open your composer.json file, and add the new required package.
 ```
-"pingpong/themes": "~2.0"
+"pingpong/themes": "~2.1"
 ```
 Next, open a terminal and run.
 ```

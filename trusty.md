@@ -14,7 +14,7 @@ Trusty - Roles and Permissions for Laravel 5
 
 Open your composer.json file, and add the new required package.
 ```
-"pingpong/trusty": "~2.0" 
+"pingpong/trusty": "~2.1" 
 ```
 Next, open a terminal and run.
 ```

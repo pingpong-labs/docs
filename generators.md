@@ -17,7 +17,7 @@ Laravel 5 Generators
 ## Installation
 
 ```
-composer require "pingpong/generators:~2.0"
+composer require "pingpong/generators:~2.1"
 ```
 
 Next, register new service provider to `providers` array in `config/app.php`.
