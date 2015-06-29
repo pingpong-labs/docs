@@ -3,7 +3,6 @@
 - [Menus](/docs/2.0/menus)
 - [Widget](/docs/2.0/widget)
 - [Generators](/docs/2.0/generators)
-- [Testing](/docs/2.0/testing)
 - [Presenters](/docs/2.0/presenters)
 - [Trusty](/docs/2.0/trusty)
 - [Themes](/docs/2.0/themes)
