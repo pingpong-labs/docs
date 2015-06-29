@@ -12,7 +12,6 @@ Pingpong Sky is a PHP component made specifically for Laravel. Pingpong Sky incl
 - Themes
 - Trusty
 - Generators
-- Testing
 
 # License
 
