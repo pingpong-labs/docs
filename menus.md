@@ -233,12 +233,12 @@ Menu::create('navbar', function($menu)
 	
 	$menu->route('/', 'About', ['user' => '1'], ['icon' => 'fa fa-user'])->order(2);
 	
-	$menu->dropdown('Settings', 3, function ($sub) {
+	$menu->dropdown('Settings', function ($sub) {
 		$sub->header('ACCOUNT');
 		$sub->url('/settings/design', 'Design');
 		$sub->divider();
 		$sub->url('logout', 'Logout');
-	});
+	})->order(3);
 });
 ```
 
