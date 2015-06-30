@@ -190,6 +190,8 @@ php artisan generate:scaffold task --fields="name:string, description=text" --pr
 <a name="modifying-templates"></a>
 ## Modifying Templates
 
+> This feature is added since version 2.1.2.
+
 You may also modify the generator templates (or stubs) as you want. To modify templates, you need to publish them first. You can publish the templates by running this following command.
 
 ```
