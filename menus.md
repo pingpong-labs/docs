@@ -217,6 +217,23 @@ Menu::create('navbar', function($menu)
 });
 ```
 
+You may also set the order value by calling `->order` method.
+```
+Menu::create('navbar', function($menu)
+{
+	$menu->url('/', 'Home', ['icon' => 'fa fa-dashboard'])->order(1);
+	
+	$menu->route('/', 'About', ['user' => '1'], ['icon' => 'fa fa-user'])->order(2);
+	
+	$menu->dropdown('Settings', 3, function ($sub) {
+		$sub->header('ACCOUNT');
+		$sub->url('/settings/design', 'Design');
+		$sub->divider();
+		$sub->url('logout', 'Logout');
+	});
+});
+```
+
 By default ordering feature is disabled. You can enable the `ordering` feature in your config file. Just update value of `ordering` config to `true` and now your menu will ordered by `order` key.
 
 ```
