@@ -251,6 +251,18 @@ return [
 ];
 ```
 
+You may also enable or disable menu ordering for each menu via `->enableOrdering` and `->disableOrdering` method.
+```
+Menu::create('navbar', function($menu)
+{
+	// disable menu ordering
+	$menu->enableOrdering();
+
+	// disable menu ordering
+	$menu->disableOrdering();
+});
+```
+
 <a name="make-lots-of-menu"></a>
 **Make Lots of menu**
 
