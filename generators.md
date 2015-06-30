@@ -12,6 +12,7 @@ Laravel 5 Generators
 	- [Generate a seed](#seed)
 	- [Generate a view](#view)
 	- [Generate a scaffold](#scaffold)
+- [Modifying Templates](#modifying-templates)
 
 <a name="installation"></a>
 ## Installation
@@ -184,4 +185,24 @@ You can also specify the option `prefix` for this command. It is used as a `pref
 
 ```
 php artisan generate:scaffold task --fields="name:string, description=text" --prefix=admin
+```
+
+<a name="modifying-templates"></a>
+## Modifying Templates
+
+You may also modify the generator templates (or stubs) as you want. To modify templates, you need to publish them first. You can publish the templates by running this following command.
+
+```
+php artisan vendor:publish --provider="Pingpong\Generators\GeneratorsServiceProvider"
+```
+
+This command will publish the templates to `resources/pingpong/generators/stubs` path. 
+
+You may also change the template path to other path by changing `template_path` value from `generators` config.
+
+```
+// File: config/generators.php
+return [
+	'template_path' => base_path('resources/pingpong/generators/stubs')
+];
 ```
