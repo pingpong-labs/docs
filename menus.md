@@ -80,6 +80,14 @@ Menu::create('navbar', function($menu)
 });
 ````
 
+Since version 2.1.1, you may also create a menu via `make` method.
+```
+Menu::make('navbar', function($menu)
+{
+	// define your menu items here
+});
+```
+
 <a name="menu-item"></a>
 **Menu Item**
 
