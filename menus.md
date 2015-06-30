@@ -216,12 +216,12 @@ Menu::create('navbar', function($menu)
 	// url, title, route parameters, order, attributes
 	$menu->route('/', 'About', ['user' => '1'], 2);
 	// title, order, callback attributes
-	$menu->dropdown('Settings', 3, function ($sub) {
+	$menu->dropdown('Settings', function ($sub) {
 		$sub->header('ACCOUNT');
 		$sub->url('/settings/design', 'Design');
 		$sub->divider();
 		$sub->url('logout', 'Logout');
-	});
+	}, 3);
 });
 ```
 
