@@ -20,6 +20,7 @@
 - [Menu Inheritance](#menu-inheritance)
   - [Menu Instance](#menu-instance)
   - [Finding Menu Item](#finding-menu-item)
+  - [Modifying Menu](#modifying-menu)
 
 <a name="upgrades"></a>
 ## Upgrades
@@ -527,4 +528,19 @@ $menu->whereTitle('Profile', function ($sub)
 });
 
 // add childs menu
+```
+
+<a name="modifying-menu"></a>
+### Modifying Menu
+
+After we create a menu, maybe we need to add other additional menus. You may modifying menu via `->modify` method.
+
+```
+Menu::modify('navbar', function($menu)
+{
+	$menu->add([
+		'title' => 'Foo',
+		'url' => 'bar',
+	]);
+});
 ```
