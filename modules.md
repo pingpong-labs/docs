@@ -112,13 +112,13 @@ By default controllers, entities or repositories not loaded automatically. You c
 - `enabled` - If `true`, the package will scan other paths. By default the value is `false`
 - `paths` - The list of path which can scanned automatically by the package.
 - `composer`
-- `vendor` - Composer vendor name.
-- `author.name` - Composer author name.
-- `author.email` - Composer author email.
+  - `vendor` - Composer vendor name.
+  - `author.name` - Composer author name.
+  - `author.email` - Composer author email.
 - `cache`
-- `enabled` - If `true`, the scanned modules (all modules) will cached automatically. By default the value is `false`
-- `key` - The name of cache.
-- `lifetime` - Lifetime of cache.
+  - `enabled` - If `true`, the scanned modules (all modules) will cached automatically. By default the value is `false`
+  - `key` - The name of cache.
+  - `lifetime` - Lifetime of cache.
 
 <a name="creating-a-module"></a>
 ## Creating A Module
