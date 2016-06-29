@@ -4,7 +4,7 @@ Laravel 5 Modules
 - [Upgrade Guide](#upgrade-guide)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Naming Convension](#naming-convension)
+- [Naming Convention](#naming-convention)
 - [Folder Structure](#folder-structure)
 - [Creating Module](#creating-a-module)
 - [Artisan Commands](#artisan-commands)
@@ -151,10 +151,10 @@ php artisan module:make Blog --plain
 php artisan module:make Blog -p
 ```
 
-<a name="naming-convension"></a>
-**Naming Convension**
+<a name="naming-convention"></a>
+**Naming Convention**
 
-Because we are autoloading the modules using `psr-4`, we strongly recommend using `StudlyCase` convension.
+Because we are autoloading the modules using `psr-4`, we strongly recommend using `StudlyCase` convention.
 
 <a name="folder-structure"></a>
 **Folder Structure**
