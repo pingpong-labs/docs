@@ -1,5 +1,5 @@
 module.exports = {
-  title: "Pingpong Sky",
-  description: "A free open-sourced Laravel Packages",
+  title: "Pingpong Labs",
+  description: "An open-sourced Laravel Packages",
   base: "/docs/"
 };
