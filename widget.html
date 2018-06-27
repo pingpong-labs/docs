@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Laravel 5 Widget | Pingpong Labs</title>
+    <meta name="description" content="An open-sourced Laravel Packages">
+    
+    
+    <link rel="preload" href="/docs/assets/css/11.styles.ec8d0712.css" as="style"><link rel="preload" href="/docs/assets/js/app.9c87c64e.js" as="script"><link rel="preload" href="/docs/assets/js/0.f2b4618d.js" as="script"><link rel="prefetch" href="/docs/assets/js/6.627ce2ac.js"><link rel="prefetch" href="/docs/assets/js/1.ca286f24.js"><link rel="prefetch" href="/docs/assets/js/2.f1f9fbc5.js"><link rel="prefetch" href="/docs/assets/js/3.bbbd5639.js"><link rel="prefetch" href="/docs/assets/js/4.bcc4f855.js"><link rel="prefetch" href="/docs/assets/js/5.94882323.js"><link rel="prefetch" href="/docs/assets/js/7.7f9d05d5.js"><link rel="prefetch" href="/docs/assets/js/8.d869c58f.js"><link rel="prefetch" href="/docs/assets/js/9.1e39cb2b.js"><link rel="prefetch" href="/docs/assets/js/10.a551d427.js">
+    <link rel="stylesheet" href="/docs/assets/css/11.styles.ec8d0712.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/docs/" class="home-link router-link-active"><!----><span class="site-name">
+      Pingpong Labs
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><!----></div><div class="page"><div class="content"><h1 id="laravel-5-widget"><a href="#laravel-5-widget" aria-hidden="true" class="header-anchor">#</a> Laravel 5 Widget</h1><ul><li><a href="#installation">Installation</a></li><li><a href="#whats-new">What's New</a></li><li><a href="#registering-widget">Registering Widget</a></li><li><a href="#calling-widget">Calling Widget</a></li><li><a href="#grouping-widget">Grouping Widget</a></li></ul><p><a name="installation"></a></p><h2 id="installation"><a href="#installation" aria-hidden="true" class="header-anchor">#</a> Installation</h2><p>Open your composer.json file and add the new required package.</p><div class="language-json extra-class"><pre class="language-json"><code>    <span class="token property">&quot;pingpong/widget&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;~2.1&quot;</span>
+</code></pre></div><p>Next, open your terminal and run <code>composer update</code>.</p><p>After composer updated, add new service provider in <code>config/app.php</code> :</p><div class="language-php extra-class"><pre class="language-php"><code>    <span class="token single-quoted-string string">'Pingpong\Widget\WidgetServiceProvider'</span><span class="token punctuation">,</span>
+</code></pre></div><p>And add facade in the same file</p><div class="language-php extra-class"><pre class="language-php"><code>    <span class="token single-quoted-string string">'Widget'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'Pingpong\Widget\WidgetFacade'</span>
+</code></pre></div><p>Done.</p><p><a name="whats-new"></a></p><h2 id="what-s-new"><a href="#what-s-new" aria-hidden="true" class="header-anchor">#</a> What's New!</h2><p>Subscribe widget: It's a new way to register widget using a specified class. For example:</p><div class="language-php extra-class"><pre class="language-php"><code>Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'WidgetSubscriber'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">WidgetSubscriber</span> <span class="token punctuation">{</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token variable">$widget</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token variable">$widget</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'image'</span><span class="token punctuation">,</span> <span class="token constant">__CLASS__</span> <span class="token punctuation">.</span><span class="token single-quoted-string string">'@image'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">image</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token single-quoted-string string">'Your handler here'</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>You can also specified which method to handle subscriber of widget.</p><div class="language-php extra-class"><pre class="language-php"><code>Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'WidgetSubscriber@handle'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">WidgetSubscriber</span> <span class="token punctuation">{</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">handle</span><span class="token punctuation">(</span><span class="token variable">$widget</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token variable">$widget</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'image'</span><span class="token punctuation">,</span> <span class="token constant">__CLASS__</span> <span class="token punctuation">.</span><span class="token single-quoted-string string">'@image'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">image</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token single-quoted-string string">'Your handler here'</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><a name="registering-widget"></a></p><h3 id="registering-a-widget"><a href="#registering-a-widget" aria-hidden="true" class="header-anchor">#</a> Registering A Widget</h3><p>By default you can register a widget in <code>app/widgets.php</code>, that file will autoload automatically.</p><p>Via Closure.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token comment">// app/widgets.php</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'small'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token variable">$contents</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">return</span> <span class="token double-quoted-string string">&quot;&lt;small&gt;<span class="token interpolation"><span class="token punctuation">{</span><span class="token variable">$contents</span><span class="token punctuation">}</span></span>&lt;/small&gt;&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'view'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token variable">$view</span><span class="token punctuation">,</span> <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token variable">$mergeData</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">return</span> View<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">make</span><span class="token punctuation">(</span><span class="token variable">$view</span><span class="token punctuation">,</span> <span class="token variable">$data</span><span class="token punctuation">,</span> <span class="token variable">$mergeData</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>Via Class Name.</p><p>By default will call <code>register</code> method.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token keyword">class</span> <span class="token class-name">MyWidget</span> <span class="token punctuation">{</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">register</span><span class="token punctuation">(</span><span class="token variable">$contents</span><span class="token punctuation">,</span> <span class="token variable">$attributes</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+	    <span class="token variable">$attributes</span> <span class="token operator">=</span> <span class="token constant">HTML</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">attributes</span><span class="token punctuation">(</span><span class="token variable">$attributes</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">return</span> <span class="token double-quoted-string string">&quot;&lt;h1<span class="token interpolation"><span class="token punctuation">{</span><span class="token variable">$attributes</span><span class="token punctuation">}</span></span>&gt;<span class="token interpolation"><span class="token punctuation">{</span><span class="token variable">$contents</span><span class="token punctuation">}</span></span>&lt;/h1&gt;&quot;</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'h1'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'MyWidget'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>Via Class Name with the specified method.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token keyword">class</span> <span class="token class-name">TagCreator</span> <span class="token punctuation">{</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">create</span><span class="token punctuation">(</span><span class="token variable">$tag</span><span class="token punctuation">,</span> <span class="token variable">$contents</span><span class="token punctuation">,</span> <span class="token variable">$attributes</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token variable">$attributes</span> <span class="token operator">=</span> <span class="token constant">HTML</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">attributes</span><span class="token punctuation">(</span><span class="token variable">$attributes</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">return</span> <span class="token double-quoted-string string">&quot;&lt;<span class="token interpolation"><span class="token punctuation">{</span><span class="token variable">$tag</span><span class="token punctuation">}</span></span><span class="token interpolation"><span class="token punctuation">{</span><span class="token variable">$attributes</span><span class="token punctuation">}</span></span>&gt;<span class="token interpolation"><span class="token punctuation">{</span><span class="token variable">$contents</span><span class="token punctuation">}</span></span>&lt;/<span class="token interpolation"><span class="token punctuation">{</span><span class="token variable">$tag</span><span class="token punctuation">}</span></span>&gt;&quot;</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">HTMLWidget</span> <span class="token punctuation">{</span>
+
+	<span class="token keyword">protected</span> <span class="token variable">$tag</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span>TagCreator <span class="token variable">$tag</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">tag</span> <span class="token operator">=</span> <span class="token variable">$tag</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">p</span><span class="token punctuation">(</span><span class="token variable">$contents</span><span class="token punctuation">,</span> <span class="token variable">$attributes</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">tag</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'p'</span><span class="token punctuation">,</span> <span class="token variable">$contents</span><span class="token punctuation">,</span> <span class="token variable">$attributes</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">div</span><span class="token punctuation">(</span><span class="token variable">$contents</span><span class="token punctuation">,</span> <span class="token variable">$attributes</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">tag</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'div'</span><span class="token punctuation">,</span> <span class="token variable">$contents</span><span class="token punctuation">,</span> <span class="token variable">$attributes</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'p'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'HTMLWidget@p'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'div'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'HTMLWidget@div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="calling-widget"></a></p><h3 id="calling-a-widget"><a href="#calling-a-widget" aria-hidden="true" class="header-anchor">#</a> Calling A Widget</h3><div class="language-php extra-class"><pre class="language-php"><code>Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'small'</span><span class="token punctuation">,</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'My Content'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'small'</span><span class="token punctuation">,</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'My Content'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">small</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'My Content'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">p</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'My Content'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">div</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'My Content'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">h1</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'My Content'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>On view you can call like this.</p><div class="language- extra-class"><pre class="language-text"><code>@small('My Content')
+
+@view('users.show', $data, $mergeData)
+
+@h1('Welcome!')
+
+@p('Hello World', array('class' =&gt; 'page-header'));
+
+@div('Lorem ipsum', array('class' =&gt; 'alert alert-warning'));
+</code></pre></div><p><a name="grouping-widget"></a></p><h3 id="grouping-a-widget"><a href="#grouping-a-widget" aria-hidden="true" class="header-anchor">#</a> Grouping A Widget</h3><p>It is very easy to group widget. you only need to specify the group name and specify an array of the names of the widgets that will be grouped.</p><div class="language-php extra-class"><pre class="language-php"><code>Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'calendar'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'SidebarWidget@calendar'</span><span class="token punctuation">)</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'archive'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'SidebarWidget@archive'</span><span class="token punctuation">)</span>
+
+Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'sidebar'</span><span class="token punctuation">,</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'calendar'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'archive'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>To call a group of widgets is the same as calling the widget.</p><div class="language-php extra-class"><pre class="language-php"><code>Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">sidebar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>If you want to send parameters to the widget that is in the group, you can call it like this.</p><div class="language-php extra-class"><pre class="language-php"><code>Widget<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">sidebar</span><span class="token punctuation">(</span>
+	<span class="token keyword">array</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'your-first-param'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'your-second-param'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token keyword">array</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'first-param-for-second-widget'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'the-second'</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>On view you can call a group of widgets is same as calling the widget.</p><div class="language- extra-class"><pre class="language-text"><code>@sidebar()
+
+@sidebar(array('first-param'), array('first-param-for-second-widget'))
+</code></pre></div></div><div class="page-edit"><!----><!----></div><!----></div></div></div>
+    <script src="/docs/assets/js/0.f2b4618d.js" defer></script><script src="/docs/assets/js/app.9c87c64e.js" defer></script>
+  </body>
+</html>

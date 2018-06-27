@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Laravel 5 Themes | Pingpong Labs</title>
+    <meta name="description" content="An open-sourced Laravel Packages">
+    
+    
+    <link rel="preload" href="/docs/assets/css/11.styles.ec8d0712.css" as="style"><link rel="preload" href="/docs/assets/js/app.9c87c64e.js" as="script"><link rel="preload" href="/docs/assets/js/2.f1f9fbc5.js" as="script"><link rel="prefetch" href="/docs/assets/js/6.627ce2ac.js"><link rel="prefetch" href="/docs/assets/js/1.ca286f24.js"><link rel="prefetch" href="/docs/assets/js/3.bbbd5639.js"><link rel="prefetch" href="/docs/assets/js/4.bcc4f855.js"><link rel="prefetch" href="/docs/assets/js/5.94882323.js"><link rel="prefetch" href="/docs/assets/js/0.f2b4618d.js"><link rel="prefetch" href="/docs/assets/js/7.7f9d05d5.js"><link rel="prefetch" href="/docs/assets/js/8.d869c58f.js"><link rel="prefetch" href="/docs/assets/js/9.1e39cb2b.js"><link rel="prefetch" href="/docs/assets/js/10.a551d427.js">
+    <link rel="stylesheet" href="/docs/assets/css/11.styles.ec8d0712.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/docs/" class="home-link router-link-active"><!----><span class="site-name">
+      Pingpong Labs
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><!----></div><div class="page"><div class="content"><h1 id="laravel-5-themes"><a href="#laravel-5-themes" aria-hidden="true" class="header-anchor">#</a> Laravel 5 Themes</h1><ul><li><a href="#installation">Installation</a></li><li><a href="#usage">Usage</a><ul><li><a href="#get-all-themes">Get All Themes</a></li><li><a href="#set-active-theme">Set Active Theme</a></li><li><a href="#get-current-theme">Get Current Theme</a></li><li><a href="#check-theme">Check Theme</a></li><li><a href="#set-themes-path">Set Themes Path</a></li><li><a href="#get-themes-path">Get Themes Path</a></li><li><a href="#get-theme-path">Get Theme's Path</a></li><li><a href="#get-theme-view">Get Theme's View</a></li><li><a href="#get-theme-lang">Get Theme's Lang</a></li><li><a href="#get-theme-config">Get Theme's Config</a></li></ul></li><li><a href="#artisan-commands">Artisan Commands</a><ul><li><a href="#theme-make-command">theme:make</a></li><li><a href="#theme-list-command">theme:list</a></li><li><a href="#theme-cache-command">theme:cache</a></li><li><a href="#theme-publish-command">theme:publish</a></li></ul></li></ul><p><a name="installation"></a></p><h2 id="installation"><a href="#installation" aria-hidden="true" class="header-anchor">#</a> Installation</h2><p>Open your composer.json file, and add the new required package.</p><div class="language-json extra-class"><pre class="language-json"><code><span class="token property">&quot;pingpong/themes&quot;</span><span class="token operator">:</span> <span class="token string">&quot;~2.1&quot;</span>
+</code></pre></div><p>Next, open a terminal and run.</p><div class="language- extra-class"><pre class="language-text"><code>composer update
+</code></pre></div><p>Next, Add new service provider in <code>config/app.php</code>.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token single-quoted-string string">'Pingpong\Themes\ThemesServiceProvider'</span><span class="token punctuation">,</span>
+</code></pre></div><p>Next, Add new aliases in <code>config/app.php</code>.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token single-quoted-string string">'Theme'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'Pingpong\Themes\ThemeFacade'</span><span class="token punctuation">,</span>
+</code></pre></div><p>Next, publish the package's assets.</p><div class="language- extra-class"><pre class="language-text"><code>php artisan vendor:publish
+</code></pre></div><p>Done.</p><p><a name="usage"></a></p><h2 id="usage"><a href="#usage" aria-hidden="true" class="header-anchor">#</a> Usage</h2><p><a name="get-all-themes"></a>
+Get all themes.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="set-active-theme"></a>
+Set theme active.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">setCurrent</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="get-current-theme"></a>
+Get current theme active.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">getCurrent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="check-theme"></a>
+Check theme.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">has</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'simple'</span><span class="token punctuation">)</span>
+
+Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'other-theme'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="set-themes-path"></a>
+Set theme path.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token variable">$path</span> <span class="token operator">=</span> <span class="token function">public_path</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'themes'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">setPath</span><span class="token punctuation">(</span><span class="token variable">$path</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="get-theme-path"></a>
+Get theme path.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">getThemePath</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="get-themes-path"></a>
+Get themes path.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">getPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="get-theme-view"></a>
+Get view from current active theme.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">view</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'index'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">view</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'folders.view'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="get-theme-lang"></a>
+Get translation value from active theme.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">lang</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'group.name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="get-theme-config"></a>
+Get theme's config value from active theme.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'filename.key'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'filename.key.subkey'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'filename.key.subkey'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'default value here'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>If your theme's config file named <code>config.php</code>, you can get the value of config little bit short.</p><div class="language-php extra-class"><pre class="language-php"><code>Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'key'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'key.subkey'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>You can also get config value from other theme.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token comment">// current theme</span>
+Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'key'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// from other theme</span>
+Theme<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'bootstrap::key'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a name="artisan-commands"></a></p><h2 id="artisan-commands"><a href="#artisan-commands" aria-hidden="true" class="header-anchor">#</a> Artisan Commands</h2><p><a name="theme-make-command"></a>
+Generate a new theme.</p><div class="language- extra-class"><pre class="language-text"><code>php artisan theme:make foo
+</code></pre></div><p><a name="theme-list-command"></a>
+Show all available themes.</p><div class="language- extra-class"><pre class="language-text"><code>php artisan theme:list
+</code></pre></div><p><a name="theme-cache-command"></a>
+Cache all themes.</p><div class="language- extra-class"><pre class="language-text"><code>php artisan theme:cache
+</code></pre></div><p><a name="theme-publish-command"></a>
+Publish all theme's assets from all themes.</p><div class="language- extra-class"><pre class="language-text"><code>php artisan theme:publish
+</code></pre></div><p>Publish all theme's assets from the specified theme.</p><div class="language- extra-class"><pre class="language-text"><code>php artisan theme:publish theme-name
+</code></pre></div></div><div class="page-edit"><!----><!----></div><!----></div></div></div>
+    <script src="/docs/assets/js/2.f1f9fbc5.js" defer></script><script src="/docs/assets/js/app.9c87c64e.js" defer></script>
+  </body>
+</html>

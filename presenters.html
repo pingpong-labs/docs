@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Laravel 5 View Presenter | Pingpong Labs</title>
+    <meta name="description" content="An open-sourced Laravel Packages">
+    
+    
+    <link rel="preload" href="/docs/assets/css/11.styles.ec8d0712.css" as="style"><link rel="preload" href="/docs/assets/js/app.9c87c64e.js" as="script"><link rel="preload" href="/docs/assets/js/4.bcc4f855.js" as="script"><link rel="prefetch" href="/docs/assets/js/6.627ce2ac.js"><link rel="prefetch" href="/docs/assets/js/1.ca286f24.js"><link rel="prefetch" href="/docs/assets/js/2.f1f9fbc5.js"><link rel="prefetch" href="/docs/assets/js/3.bbbd5639.js"><link rel="prefetch" href="/docs/assets/js/5.94882323.js"><link rel="prefetch" href="/docs/assets/js/0.f2b4618d.js"><link rel="prefetch" href="/docs/assets/js/7.7f9d05d5.js"><link rel="prefetch" href="/docs/assets/js/8.d869c58f.js"><link rel="prefetch" href="/docs/assets/js/9.1e39cb2b.js"><link rel="prefetch" href="/docs/assets/js/10.a551d427.js">
+    <link rel="stylesheet" href="/docs/assets/css/11.styles.ec8d0712.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/docs/" class="home-link router-link-active"><!----><span class="site-name">
+      Pingpong Labs
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><!----></div><div class="page"><div class="content"><h1 id="laravel-5-view-presenter"><a href="#laravel-5-view-presenter" aria-hidden="true" class="header-anchor">#</a> Laravel 5 View Presenter</h1><ul><li><a href="#installation">Installation</a></li><li><a href="#usage">Usage</a></li></ul><p><a name="installation"></a></p><h3 id="installation"><a href="#installation" aria-hidden="true" class="header-anchor">#</a> Installation</h3><p>Open your composer.json file, and add the new required package.
+&quot;pingpong/presenters&quot;: &quot;~2.1&quot;</p><p>Next, open a terminal and run.</p><p>composer update</p><p>Done.</p><p><a name="usage"></a></p><h3 id="usage"><a href="#usage" aria-hidden="true" class="header-anchor">#</a> Usage</h3><p>First, create your own presenter and make sure that class is extends to <code>Pingpong\Presenters\Presenter</code> class. Like this.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+<span class="token keyword">use</span> <span class="token package">Pingpong<span class="token punctuation">\</span>Presenters<span class="token punctuation">\</span>Presenter</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">UserPresenter</span> <span class="token keyword">extends</span> <span class="token class-name">Presenter</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">email</span><span class="token punctuation">(</span><span class="token variable">$attributes</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token constant">HTML</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">mailto</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">resource</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">email</span><span class="token punctuation">,</span> <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">resource</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">email</span><span class="token punctuation">,</span> <span class="token variable">$attributes</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter important">?&gt;</span></span>
+</code></pre></div><p>Make sure your model/eloquent to extends <code>Pingpong\Presenters\Model</code> and set the presenter property to that model/eloquent.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+<span class="token keyword">use</span> <span class="token package">Pingpong<span class="token punctuation">\</span>Presenters<span class="token punctuation">\</span>Model</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">extends</span> <span class="token class-name">Model</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">protected</span> <span class="token variable">$presenter</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'UserPresenter'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter important">?&gt;</span></span>
+</code></pre></div><p>That's it! You're done. Now, within your view, you can do:</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>Your email is <span class="token punctuation">{</span><span class="token punctuation">{</span> <span class="token variable">$user</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">present</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">email</span> <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+</code></pre></div><p>Or, call the presenter as method.</p><div class="language-php extra-class"><pre class="language-php"><code><span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>Your email is <span class="token punctuation">{</span><span class="token punctuation">{</span> <span class="token variable">$user</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">present</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">email</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'width'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">140</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+</code></pre></div></div><div class="page-edit"><!----><!----></div><!----></div></div></div>
+    <script src="/docs/assets/js/4.bcc4f855.js" defer></script><script src="/docs/assets/js/app.9c87c64e.js" defer></script>
+  </body>
+</html>
