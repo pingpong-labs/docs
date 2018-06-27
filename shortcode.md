@@ -1,5 +1,8 @@
-Laravel 5 Shortcode
-=========
+---
+title: Laravel 5 Shortcode
+---
+
+# Laravel 5 Shortcode
 
 - [Installation](#installation)
 - [Registering Shorcode](#registering-shortcode)
@@ -8,17 +11,19 @@ Laravel 5 Shortcode
 - [Destroying All Shorcodes](#destroying-all-shortcode)
 
 <a name="installation"></a>
+
 ## Installation
+
 Open your composer.json file, and add the new required package.
 
 ```
-  "pingpong/shortcode": "~2.1" 
+  "pingpong/shortcode": "~2.1"
 ```
 
 Next, open a terminal and run.
 
 ```
-  composer update 
+  composer update
 ```
 
 After the composer updated. Add new service provider in `config/app.php`.
@@ -28,6 +33,7 @@ After the composer updated. Add new service provider in `config/app.php`.
 ```
 
 Add new Facade alias.
+
 ```php
 'Shortcode'       => 'Pingpong\Shortcode\ShortcodeFacade',
 ```
@@ -35,9 +41,11 @@ Add new Facade alias.
 Done.
 
 <a name="registering-shortcode"></a>
+
 ## Registering Shorcode
 
 Using closure:
+
 ```php
 Shortcode::register('a', function($attr, $content = null, $name = null)
 {
@@ -47,8 +55,8 @@ Shortcode::register('a', function($attr, $content = null, $name = null)
 ```
 
 Using class name.
-```php
 
+```php
 class DivShortcode
 {
   public function register($attr, $content = null, $name = null)
@@ -62,8 +70,8 @@ Shortcode::register('div', 'DivShortcode');
 ```
 
 Using class name with the specified method.
-```php
 
+```php
 class HTMLShortcode
 {
   public function img($attr, $content = null, $name = null)
@@ -79,11 +87,11 @@ Shortcode::register('img', 'HTMLShortcode@img');
 ```
 
 Using callback array.
-```php
 
+```php
 class SpanShortcode
 {
-  
+
   public function div($attr, $content = null, $name = null)
   {
   	$text = Shortcode::compile($content);
@@ -95,6 +103,7 @@ Shortcode::register('span', array('SpanShortcode', 'span'));
 ```
 
 Using function name.
+
 ```php
 function smallTag($attr, $content = null, $name = null)
 {
@@ -106,6 +115,7 @@ Shortcode::register('small', 'smallTag');
 ```
 
 <a name="compiling-shortcode"></a>
+
 ## Compiling Shortcode
 
 ```php
@@ -122,6 +132,7 @@ echo Shortcode::compile($text);
 ```
 
 <a name="unregistering-shortcode"></a>
+
 ## Unregistering Shortcode
 
 ```php
@@ -129,6 +140,7 @@ Shortcode::unregister('img');
 ```
 
 <a name="destroying-all-shortcode"></a>
+
 ## Destroying All Shortcodes
 
 ```php

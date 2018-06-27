@@ -1,5 +1,8 @@
-Trusty - Roles and Permissions for Laravel 5
-======
+---
+title: Roles and Permissions for Laravel 5
+---
+
+# Trusty - Roles and Permissions for Laravel 5
 
 - [Installation](#installation)
 - [Creating A Role](#creating-a-role)
@@ -10,15 +13,19 @@ Trusty - Roles and Permissions for Laravel 5
 - [Checking User Permission](#checking-user-permission)
 
 <a name="installation"></a>
+
 ### Installation
 
 Open your composer.json file, and add the new required package.
+
 ```
-"pingpong/trusty": "~2.1" 
+"pingpong/trusty": "~2.1"
 ```
+
 Next, open a terminal and run.
+
 ```
-composer update 
+composer update
 ```
 
 Next, Add new service provider in `config/app.php`.
@@ -36,6 +43,7 @@ Next, Add new aliases in `config/app.php`.
 ```
 
 Next, publish the package's migrations.
+
 ```
 php artisan vendor:publish
 ```
@@ -74,9 +82,11 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 ```
 
 <a name="creating-a-role"></a>
+
 ## Creating A Role.
 
 With description.
+
 ```php
 Role::create([
 	'name'			=>	'Administrator',
@@ -86,6 +96,7 @@ Role::create([
 ```
 
 Without description.
+
 ```php
 Role::create([
 	'name'	=>	'Editor',
@@ -94,9 +105,11 @@ Role::create([
 ```
 
 <a name="creating-a-role"></a>
+
 ## Creating A Permission
 
 With description.
+
 ```php
 Permission::create([
 	'name'			=>	'Manage Users',
@@ -106,6 +119,7 @@ Permission::create([
 ```
 
 Without description.
+
 ```php
 Permission::create([
 	'name'			=>	'Manage Posts',
@@ -114,6 +128,7 @@ Permission::create([
 ```
 
 <a name="adding-permission-to-role"></a>
+
 ## Adding Permission to Role.
 
 ```php
@@ -123,14 +138,17 @@ $role->permissions()->attach($permission_id);
 ```
 
 <a name="adding-role-to-user"></a>
+
 ## Adding Role to User.
 
 By Role ID.
+
 ```php
 Auth::user()->addRole(1);
 ```
 
 By Slug Or Name.
+
 ```php
 Auth::user()->addRole('admin');
 
@@ -138,9 +156,11 @@ Auth::user()->addRole('Administrator');
 ```
 
 <a name="checking-role-user"></a>
+
 ## Checking Role User
 
 Checking single role.
+
 ```php
 if(Auth::user()->is('administrator'))
 {
@@ -149,6 +169,7 @@ if(Auth::user()->is('administrator'))
 ```
 
 Multiple roles.
+
 ```php
 if(Auth::user()->is('administrator', 'subscriber'))
 {
@@ -157,6 +178,7 @@ if(Auth::user()->is('administrator', 'subscriber'))
 ```
 
 Or using magic method.
+
 ```php
 if(Auth::user()->isAdministrator())
 {
@@ -165,9 +187,11 @@ if(Auth::user()->isAdministrator())
 ```
 
 <a name="checking-user-permission"></a>
+
 ## Checking User Permission
 
 Single check.
+
 ```php
 if(Auth::user()->can('manage_users'))
 {
@@ -176,6 +200,7 @@ if(Auth::user()->can('manage_users'))
 ```
 
 Checking multiple permissions.
+
 ```php
 if(Auth::user()->can('manage_users', 'manage_pages'))
 {
@@ -184,6 +209,7 @@ if(Auth::user()->can('manage_users', 'manage_pages'))
 ```
 
 Or using magic method.
+
 ```php
 if(Auth::user()->canManageUsers())
 {
@@ -192,6 +218,7 @@ if(Auth::user()->canManageUsers())
 ```
 
 Check permissions against a role.
+
 ```php
 $role = Role::findOrFail(1);
 
@@ -202,6 +229,7 @@ if ($role->can('manage_users'))
 ```
 
 Or using magic method.
+
 ```php
 $role = Role::findOrFail(1);
 

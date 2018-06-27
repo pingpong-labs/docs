@@ -1,5 +1,8 @@
-Laravel 5 Widget
-=====================
+---
+title: Laravel 5 Widget
+---
+
+# Laravel 5 Widget
 
 - [Installation](#installation)
 - [What's New](#whats-new)
@@ -8,6 +11,7 @@ Laravel 5 Widget
 - [Grouping Widget](#grouping-widget)
 
 <a name="installation"></a>
+
 ## Installation
 
 Open your composer.json file and add the new required package.
@@ -33,6 +37,7 @@ And add facade in the same file
 Done.
 
 <a name="whats-new"></a>
+
 ## What's New!
 
 Subscribe widget: It's a new way to register widget using a specified class. For example:
@@ -74,6 +79,7 @@ class WidgetSubscriber {
 ```
 
 <a name="registering-widget"></a>
+
 ### Registering A Widget
 
 By default you can register a widget in `app/widgets.php`, that file will autoload automatically.
@@ -92,10 +98,9 @@ Widget::register('view', function($view, $data = array(), $mergeData = array()
 {
 	return View::make($view, $data, $mergeData)->render();
 });
-
 ```
 
-Via Class Name. 
+Via Class Name.
 
 By default will call `register` method.
 
@@ -105,11 +110,11 @@ class MyWidget {
 	public function register($contents, $attributes = array())
 	{
 	    $attributes = HTML::attributes($attributes);
-	    
+
 		return "<h1{$attributes}>{$contents}</h1>";
 	}
 
-} 
+}
 
 Widget::register('h1', 'MyWidget');
 ```
@@ -117,9 +122,8 @@ Widget::register('h1', 'MyWidget');
 Via Class Name with the specified method.
 
 ```php
-
 class TagCreator {
-	
+
 	public function create($tag, $contents, $attributes = array())
 	{
 		$attributes = HTML::attributes($attributes);
@@ -127,7 +131,7 @@ class TagCreator {
 		return "<{$tag}{$attributes}>{$contents}</{$tag}>";
 	}
 
-} 
+}
 
 class HTMLWidget {
 
@@ -147,14 +151,14 @@ class HTMLWidget {
 	{
 		return $this->tag->create('div', $contents, $attributes);
 	}
-} 
+}
 Widget::register('p', 'HTMLWidget@p');
 
 Widget::register('div', 'HTMLWidget@div');
-
 ```
 
 <a name="calling-widget"></a>
+
 ### Calling A Widget
 
 ```php
@@ -186,6 +190,7 @@ On view you can call like this.
 ```
 
 <a name="grouping-widget"></a>
+
 ### Grouping A Widget
 
 It is very easy to group widget. you only need to specify the group name and specify an array of the names of the widgets that will be grouped.

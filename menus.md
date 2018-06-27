@@ -1,3 +1,7 @@
+---
+title: Laravel 5 Menus
+---
+
 # Laravel 5 Menus
 
 - [Upgrades](#upgrades)
@@ -23,6 +27,7 @@
   - [Modifying Menu](#modifying-menu)
 
 <a name="upgrades"></a>
+
 ## Upgrades
 
 #### **To 2.0.10**
@@ -82,6 +87,7 @@ Menu::create('navbar', function($menu)
 ````
 
 Since version 2.1.1, you may also create a menu via `make` method.
+
 ```
 Menu::make('navbar', function($menu)
 {
@@ -95,6 +101,7 @@ Menu::make('navbar', function($menu)
 As explained before, we can defining menu item in the callback by accessing `$menu` variable, which the variable is instance of `Pingpong\Menus\MenuBuilder` class.
 
 To defining a plain URL, you can use `->url()` method.
+
 ```php
 Menu::create('navbar', function($menu)
 {
@@ -104,6 +111,7 @@ Menu::create('navbar', function($menu)
 ```
 
 If you have named route, you define the menu item by calling `->route()` method.
+
 ```php
 Menu::create('navbar', function($menu)
 {
@@ -117,6 +125,7 @@ Menu::create('navbar', function($menu)
 ```
 
 You can also defining the menu item via array by calling `->add()` method.
+
 ```php
 Menu::create('navbar', function($menu)
 {
@@ -159,6 +168,7 @@ Menu::create('navbar', function($menu)
 **Menu Dropdown Multi Level**
 
 You can also create a dropdown inside dropdown by using `->dropdown()` method. This will allow to to create a multilevel menu items.
+
 ```
 Menu::create('navbar', function($menu)
 {
@@ -179,6 +189,7 @@ Menu::create('navbar', function($menu)
 **Menu Divider**
 
 You may also define a divider for each menu item. You can divide between menu item by using `->divider()` method.
+
 ```
 Menu::create('navbar', function($menu)
 {
@@ -192,6 +203,7 @@ Menu::create('navbar', function($menu)
 **Dropdown Header**
 
 You may also add a dropdown header for the specified menu item by using `->header()` method.
+
 ```
 Menu::create('navbar', function($menu)
 {
@@ -209,6 +221,7 @@ Menu::create('navbar', function($menu)
 **Ordering Menu Item**
 
 You may order the menu by specify `order` parameter.
+
 ```
 Menu::create('navbar', function($menu)
 {
@@ -227,13 +240,14 @@ Menu::create('navbar', function($menu)
 ```
 
 You may also set the order value by calling `->order` method.
+
 ```
 Menu::create('navbar', function($menu)
 {
 	$menu->url('/', 'Home', ['icon' => 'fa fa-dashboard'])->order(1);
-	
+
 	$menu->route('/', 'About', ['user' => '1'], ['icon' => 'fa fa-user'])->order(2);
-	
+
 	$menu->dropdown('Settings', function ($sub) {
 		$sub->header('ACCOUNT');
 		$sub->url('/settings/design', 'Design');
@@ -253,6 +267,7 @@ return [
 ```
 
 You may also enable or disable menu ordering for each menu via `->enableOrdering` and `->disableOrdering` method.
+
 ```
 Menu::create('navbar', function($menu)
 {
@@ -287,6 +302,7 @@ Menu::create('menu2', function($menu)
 ```
 
 <a name="menu-presenter"></a>
+
 ### Menu Presenter
 
 This package included with some presenter classes that used for converting menu to html tag. By default the generated menu style is `bootstrap navbar`. But, there are also several different menu styles.
@@ -320,21 +336,21 @@ Menu::render('navbar', 'Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter');
 <a name="available-presenter"></a>
 **The List of Available Menu Presenter Class**
 
-| Name          | Presenter Class                                             |
-| ------------- |:------------------------------------------------------------|
-| `navbar`		| `Pingpong\Menus\Presenters\Bootstrap\NavbarPresenter`       |
-| `navbar-right`| `Pingpong\Menus\Presenters\Bootstrap\NavbarRightPresenter`  |
-| `nav-pills`	| `Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter`     |
-| `nav-tab`		| `Pingpong\Menus\Presenters\Bootstrap\NavTabPresenter`       |
-| `sidebar`     | `Pingpong\Menus\Presenters\Bootstrap\SidebarMenuPresenter`  |
-| `navmenu`     | `Pingpong\Menus\Presenters\Bootstrap\NavMenuPresenter`      |
+| Name           | Presenter Class                                            |
+| -------------- | :--------------------------------------------------------- |
+| `navbar`       | `Pingpong\Menus\Presenters\Bootstrap\NavbarPresenter`      |
+| `navbar-right` | `Pingpong\Menus\Presenters\Bootstrap\NavbarRightPresenter` |
+| `nav-pills`    | `Pingpong\Menus\Presenters\Bootstrap\NavPillsPresenter`    |
+| `nav-tab`      | `Pingpong\Menus\Presenters\Bootstrap\NavTabPresenter`      |
+| `sidebar`      | `Pingpong\Menus\Presenters\Bootstrap\SidebarMenuPresenter` |
+| `navmenu`      | `Pingpong\Menus\Presenters\Bootstrap\NavMenuPresenter`     |
 
 <a name="make-a-custom-presenter"></a>
 **Make A Costum Presenter**
 
 You can create your own presenter class. Make sure your presenter is extends to `Pingpong\Menus\Presenters\Presenter` and `implements` to 'Pingpong\Menus\Presenters\PresenterInterface'.
 
-For example, this is `zurb-top-bar` presenter. 
+For example, this is `zurb-top-bar` presenter.
 
 ```php
 use Pingpong\Menus\Presenters\Presenter;
@@ -397,8 +413,8 @@ class ZurbTopBarPresenter extends Presenter
 		;
 	}
 }
-
 ```
+
 To use this costum presenter, you can use the `setPresenter` method.
 
 ```php
@@ -434,6 +450,7 @@ Menu::create('zurb-top-bar', function($menu)
 ```
 
 <a name="view-presenter"></a>
+
 ### View Presenter
 
 If you don't like to use presenter class, you use view presenter instead. We can set which view to present the menus by calling `->setView()` method.
@@ -448,19 +465,20 @@ Menu::create('navbar', function($menu)
 <a name="available-view-presenter"></a>
 **The List of Available View Presenter**
 
-| View Name                    | Menu Style                   |
-| ---------------------------- |:-----------------------------|
-| `menus::default`		       | Bootstrap Navbar (default)   |
-| `menus::navbar-left`		   | Bootstrap Navbar Left        |
-| `menus::navbar-right`		   | Bootstrap Navbar Right       |
-| `menus::nav-tabs`		       | Bootstrap Nav Tabs           |
-| `menus::nav-tabs-justified`  | Bootstrap Nav Tabs Justified |
-| `menus::nav-pills`		   | Bootstrap Nav Pills          |
-| `menus::nav-pills-stacked`   | Bootstrap Nav Pills Stacked  |
-| `menus::nav-pills-justified` | Bootstrap Nav Pills Justified|
-| `menus::menu`                | Plain Menu                   |
+| View Name                    | Menu Style                    |
+| ---------------------------- | :---------------------------- |
+| `menus::default`             | Bootstrap Navbar (default)    |
+| `menus::navbar-left`         | Bootstrap Navbar Left         |
+| `menus::navbar-right`        | Bootstrap Navbar Right        |
+| `menus::nav-tabs`            | Bootstrap Nav Tabs            |
+| `menus::nav-tabs-justified`  | Bootstrap Nav Tabs Justified  |
+| `menus::nav-pills`           | Bootstrap Nav Pills           |
+| `menus::nav-pills-stacked`   | Bootstrap Nav Pills Stacked   |
+| `menus::nav-pills-justified` | Bootstrap Nav Pills Justified |
+| `menus::menu`                | Plain Menu                    |
 
 <a name="rendering-menu"></a>
+
 ### Rendering Menu
 
 To render the menu you can use `render` or `get` method.
@@ -472,11 +490,13 @@ Menu::get('navbar');
 ```
 
 You can also set which style to present the menu in the second parameter.
+
 ```
 Menu::render('navbar', 'navbar-right');
 ```
 
 Or you may also set which view to present the menu.
+
 ```
 Menu::render('navbar', 'menus::nav-tabs');
 ```
@@ -484,6 +504,7 @@ Menu::render('navbar', 'menus::nav-tabs');
 <a name="menu-inheritance"></a>
 
 <a name="menu-instance"></a>
+
 ### The Menu Instance
 
 Sometimes, maybe we need to add a new additional menu from controller or other place. To get an instance of an existing menu, you can use the `instance` method.
@@ -501,6 +522,7 @@ $menu->route('settings', 'Settings');
 ```
 
 <a name="finding-menu-item"></a>
+
 ### Finding Menu Item
 
 To find menu item, you can use `findBy` method from `Pingpong\Menus\MenuBuilder` class.
@@ -517,6 +539,7 @@ $menuItem->url('foo', 'Foo');
 ```
 
 You may also use `whereTitle` helper method to find a specific menu item. Also, you can add other child menu item in the callback that located in the second argument in `whereTitle` method.
+
 ```
 $menu = Menu::instance('sidebar');
 
@@ -531,6 +554,7 @@ $menu->whereTitle('Profile', function ($sub)
 ```
 
 <a name="modifying-menu"></a>
+
 ### Modifying Menu
 
 After we create a menu, maybe we need to add other additional menus. You may modifying menu via `->modify` method.

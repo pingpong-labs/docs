@@ -1,3 +1,7 @@
+---
+title: An open-sourced Laravel Packages
+---
+
 # Introduction
 
 Pingpong Sky is a PHP component made specifically for Laravel. Pingpong Sky includes some ready-made components such as Modules, Menus and Widgets.

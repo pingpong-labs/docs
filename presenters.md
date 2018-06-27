@@ -1,23 +1,27 @@
-Laravel 5 View Presenter
-=============================
+---
+title: Laravel 5 View Presenter
+---
+
+# Laravel 5 View Presenter
 
 - [Installation](#installation)
 - [Usage](#usage)
 
 <a name="installation"></a>
+
 ### Installation
 
 Open your composer.json file, and add the new required package.
-	
- 	"pingpong/presenters": "~2.1" 
+"pingpong/presenters": "~2.1"
 
 Next, open a terminal and run.
 
-  	composer update 
+composer update
 
 Done.
 
 <a name="usage"></a>
+
 ### Usage
 
 First, create your own presenter and make sure that class is extends to `Pingpong\Presenters\Presenter` class. Like this.

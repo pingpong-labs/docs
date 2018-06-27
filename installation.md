@@ -1,3 +1,7 @@
+---
+title: Installation
+---
+
 # Installation
 
 [![Build Status](https://travis-ci.org/pingpong-labs/sky.svg)](https://travis-ci.org/pingpong-labs/sky)
@@ -5,11 +9,11 @@
 
 ### Version Compability
 
- Laravel  | Pingpong Sky | PHP 
-:---------|:-------------|:----
- 4.*      | 1.*          |>= 5.4
- 5.0.*    | 2.0.*        |>= 5.4
- 5.1.*    | 2.1.*        |>= 5.4
+| Laravel | Pingpong Sky | PHP    |
+| :------ | :----------- | :----- |
+| 4.\*    | 1.\*         | >= 5.4 |
+| 5.0.\*  | 2.0.\*       | >= 5.4 |
+| 5.1.\*  | 2.1.\*       | >= 5.4 |
 
 ### Quick Installation Via Composer
 
