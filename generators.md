@@ -1,7 +1,16 @@
 # Laravel 5 Generators
 
 - [Installation](#installation)
-- [Artisan Commands](#artisan-commands) - [Generate a controller](#controller) - [Generate a model](#model) - [Generate a console command](#console) - [Generate a form request](#request) - [Generate a migration](#migration) - [Generate a pivot migration](#pivot) - [Generate a seed](#seed) - [Generate a view](#view) - [Generate a scaffold](#scaffold)
+- [Artisan Commands](#artisan-commands)
+- [Generate a controller](#controller)
+- [Generate a model](#model)
+- [Generate a console command](#console)
+- [Generate a form request](#request)
+- [Generate a migration](#migration)
+- [Generate a pivot migration](#pivot)
+- [Generate a seed](#seed)
+- [Generate a view](#view)
+- [Generate a scaffold](#scaffold)
 - [Modifying Templates](#modifying-templates)
 
 <a name="installation"></a>
