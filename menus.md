@@ -34,7 +34,7 @@ title: Laravel 5 Menus
 
 - Add new `ordering` config key in your `config/menus.php` file and set the value to false.
 
-````
+```php
 return [
 	// --more code here--
 	'ordering' => false
@@ -42,6 +42,7 @@ return [
 ```
 
 <a name="installation"></a>
+
 ## Installation
 
 You can install the through composer command line.
@@ -73,6 +74,7 @@ php artisan vendor:publish
 ```
 
 <a name="creating-a-menu"></a>
+
 ## Creating A Menu
 
 You can define your menus in `app/Support/menus.php` file. That file will loaded automatically by this package.
@@ -84,11 +86,11 @@ Menu::create('navbar', function($menu)
 {
 	// define your menu items here
 });
-````
+```
 
 Since version 2.1.1, you may also create a menu via `make` method.
 
-```
+```php
 Menu::make('navbar', function($menu)
 {
 	// define your menu items here
@@ -152,7 +154,7 @@ Menu::create('navbar', function($menu)
 
 To create a dropdown menu, you can call to `->dropdown()` method and passing the first parameter by title of dropdown and the second parameter by closure callback that retrive `$sub` variable. The `$sub` variable is the the instance of `Pingpong\Menus\MenuItem` class.
 
-```
+```php
 Menu::create('navbar', function($menu)
 {
 	$menu->url('/', 'Home');
@@ -169,7 +171,7 @@ Menu::create('navbar', function($menu)
 
 You can also create a dropdown inside dropdown by using `->dropdown()` method. This will allow to to create a multilevel menu items.
 
-```
+```php
 Menu::create('navbar', function($menu)
 {
 	$menu->url('/', 'Home');
@@ -190,7 +192,7 @@ Menu::create('navbar', function($menu)
 
 You may also define a divider for each menu item. You can divide between menu item by using `->divider()` method.
 
-```
+```php
 Menu::create('navbar', function($menu)
 {
 	$menu->url('/', 'Home');
@@ -204,7 +206,7 @@ Menu::create('navbar', function($menu)
 
 You may also add a dropdown header for the specified menu item by using `->header()` method.
 
-```
+```php
 Menu::create('navbar', function($menu)
 {
 	$menu->url('/', 'Home')
@@ -222,7 +224,7 @@ Menu::create('navbar', function($menu)
 
 You may order the menu by specify `order` parameter.
 
-```
+```php
 Menu::create('navbar', function($menu)
 {
 	// url, title, order, attributes
@@ -241,7 +243,7 @@ Menu::create('navbar', function($menu)
 
 You may also set the order value by calling `->order` method.
 
-```
+```php
 Menu::create('navbar', function($menu)
 {
 	$menu->url('/', 'Home', ['icon' => 'fa fa-dashboard'])->order(1);
@@ -259,7 +261,7 @@ Menu::create('navbar', function($menu)
 
 By default ordering feature is disabled. You can enable the `ordering` feature in your config file. Just update value of `ordering` config to `true` and now your menu will ordered by `order` key.
 
-```
+```php
 // File: config/menus.php
 return [
 	'ordering' => true
@@ -268,7 +270,7 @@ return [
 
 You may also enable or disable menu ordering for each menu via `->enableOrdering` and `->disableOrdering` method.
 
-```
+```php
 Menu::create('navbar', function($menu)
 {
 	// disable menu ordering
@@ -309,7 +311,7 @@ This package included with some presenter classes that used for converting menu 
 
 You can apply the menu style via `->style()` method.
 
-```
+```php
 Menu::create('navbar', function($menu)
 {
 	$menu->style('nav-pills');
@@ -455,7 +457,7 @@ Menu::create('zurb-top-bar', function($menu)
 
 If you don't like to use presenter class, you use view presenter instead. We can set which view to present the menus by calling `->setView()` method.
 
-```
+```php
 Menu::create('navbar', function($menu)
 {
 	$menu->setView('menus::default');
@@ -491,13 +493,13 @@ Menu::get('navbar');
 
 You can also set which style to present the menu in the second parameter.
 
-```
+```php
 Menu::render('navbar', 'navbar-right');
 ```
 
 Or you may also set which view to present the menu.
 
-```
+```php
 Menu::render('navbar', 'menus::nav-tabs');
 ```
 
@@ -527,7 +529,7 @@ $menu->route('settings', 'Settings');
 
 To find menu item, you can use `findBy` method from `Pingpong\Menus\MenuBuilder` class.
 
-```
+```php
 $menu = Menu::instance('sidebar');
 
 $menu->url('profile', 'Profile');
@@ -540,7 +542,7 @@ $menuItem->url('foo', 'Foo');
 
 You may also use `whereTitle` helper method to find a specific menu item. Also, you can add other child menu item in the callback that located in the second argument in `whereTitle` method.
 
-```
+```php
 $menu = Menu::instance('sidebar');
 
 $menu->url('profile', 'Profile');
@@ -559,7 +561,7 @@ $menu->whereTitle('Profile', function ($sub)
 
 After we create a menu, maybe we need to add other additional menus. You may modifying menu via `->modify` method.
 
-```
+```php
 Menu::modify('navbar', function($menu)
 {
 	$menu->add([
