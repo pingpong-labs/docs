@@ -78,7 +78,7 @@ Next add the following service provider in `config/app.php`.
 
 Next, add the following aliases to `aliases` array in the same file.
 
-```
+```php
 'aliases' => array(
   'Module' => 'Pingpong\Modules\Facades\Module',
 ),
@@ -557,49 +557,49 @@ $module = Module::find('blog');
 
 Get module name.
 
-```
+```php
 $module->getName();
 ```
 
 Get module name in lowercase.
 
-```
+```php
 $module->getLowerName();
 ```
 
 Get module name in studlycase.
 
-```
+```php
 $module->getStudlyName();
 ```
 
 Get module path.
 
-```
+```php
 $module->getPath();
 ```
 
 Get extra path.
 
-```
+```php
 $module->getExtraPath('Assets');
 ```
 
 Disable the specified module.
 
-```
+```php
 $module->enable();
 ```
 
 Enable the specified module.
 
-```
+```php
 $module->disable();
 ```
 
 Delete the specified module.
 
-```
+```php
 $module->delete();
 ```
 

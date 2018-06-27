@@ -18,7 +18,7 @@ title: Roles and Permissions for Laravel 5
 
 Open your composer.json file, and add the new required package.
 
-```
+```json
 "pingpong/trusty": "~2.1"
 ```
 

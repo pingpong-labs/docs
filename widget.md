@@ -16,7 +16,7 @@ title: Laravel 5 Widget
 
 Open your composer.json file and add the new required package.
 
-```
+```json
     "pingpong/widget" : "~2.1"
 ```
 

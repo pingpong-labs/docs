@@ -28,7 +28,7 @@ title: Laravel 5 Themes
 
 Open your composer.json file, and add the new required package.
 
-```
+```json
 "pingpong/themes": "~2.1"
 ```
 
